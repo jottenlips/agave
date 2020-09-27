@@ -1,0 +1,14 @@
+.merlin
+node_modules/
+_build
+_esy
+_release
+*.byte
+*.native
+*.install
+public/
+/public
+markdown/
+/markdown
+
+.DS_Store
