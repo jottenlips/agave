@@ -39,6 +39,7 @@ let buildoutdir: (string, string) => string =
     | "index.md" => "./" ++ dirname
     | _ => "./" ++ dirname ++ "/" ++ removemd(filename)
     };
+
 let makedirectories = () => {
   let inputdir =
     try(Sys.argv[1]) {
@@ -60,8 +61,10 @@ let agave = () => {
     Sys.readdir("./markdown")
     |> Array.to_list
     |> List.filter(x => is_markdown(x));
+
   markdownfiles
-  |> List.fold_left((a, b) => [buildoutdir(b, dirs[1]), ...a], []);
+  |> List.map(file => mkdir(buildoutdir(file, dirs[1])))
+  |> ignore;
 
   markdownfiles
   |> List.fold_left(
@@ -79,11 +82,12 @@ let agave = () => {
                   ++ "/"
                   ++ b
                   ++ " has been added to "
-                  ++ dirs[1]
-                  ++ " ☀️"}
+                  ++ dirs[1]}
                </Pastel>
              )
+             ++ "\n"
+             ++ a
          ),
-       "",
+       "☀️ Done!",
      );
 };
