@@ -5,7 +5,7 @@ Minimal markdown to html for flat static sites.
 ## Install
 
 ```
-yarn global add agave
+yarn global add agave-generator
 ```
 
 ## use
