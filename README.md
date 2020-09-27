@@ -1,4 +1,4 @@
-# agave
+# ☀️ Agave 🍯
 
 Minimal markdown to html for flat static sites.
 
