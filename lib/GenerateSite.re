@@ -66,6 +66,8 @@ let agave = () => {
   |> List.map(file => mkdir(buildoutdir(file, dirs[1])))
   |> ignore;
 
+  let template = readf(dirs[0]);
+
   markdownfiles
   |> List.fold_left(
        (a, b) =>
