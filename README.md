@@ -20,7 +20,7 @@ agave markdown public # reads all your readmes in markdown and outputs them to p
 ```
 
 ```shell
-agave [markdowndir?] [websiteirectory?]
+agave [markdowndir?] [websitedirectory?]
 ```
 
 gh pages
