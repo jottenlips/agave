@@ -1,6 +1,6 @@
 {
   "name": "agave-generator",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Simple static site generator",
   "license": "MIT",
   "esy": {
