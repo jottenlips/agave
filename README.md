@@ -37,7 +37,11 @@ echo "<html><!-- MARKDOWN --></html>" > markdown/base.html
 agave # run the generator again
 ```
 
-Here is an example of using custom base html. [Blog](https://jottenlips.github.io/blog/)
+Here is an example of using custom base html.
+
+[Blog](https://jottenlips.github.io/)
+
+[Repo](https://github.com/jottenlips/jottenlips.github.io)
 
 ### Deploy
 
