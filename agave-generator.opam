@@ -1,0 +1,19 @@
+opam-version: "2.0"
+name: "agave"
+version: "0.1.2"
+synopsis: "Simple static site generator"
+description: """
+Simple static site generator
+"""
+maintainer: "John jottenlips@gmail.com"
+authors: "John jottenlips@gmail.com"
+license: "MIT"
+homepage: "https://github.com/jottenlips/agave"
+bug-reports: "https://github.com/jottenlips/agave"
+dev-repo: "git://git@github.com:jottenlips/agave.git"
+depends: [ "ocaml" "ocamlfind" "bos" "pastel" "omd" "str" ]
+build: [
+  ["./configure" "--prefix=%{prefix}%"]
+  [make]
+]
+install: [make "install"]
