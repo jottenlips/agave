@@ -1,6 +1,6 @@
 # ☀️ Agave 🍯
 
-Minimal markdown to html for flat static sites with pretty urls.
+Minimal markdown to HTML for flat static sites with pretty URLs.
 
 ## Install
 
@@ -25,7 +25,7 @@ agave [markdowndir?] [websitedirectory?]
 
 ## Customization
 
-Add any base html you would like.
+Add any base HTML you would like.
 
 base.html will wrap every generated page.
 
@@ -34,11 +34,12 @@ base.html must contain `<!-- MARKDOWN -->` where you would like your content pla
 ```shell
 touch markdown/base.html
 echo "<html><!-- MARKDOWN --></html>" > markdown/base.html
+agave # run the generator again
 ```
 
 ### Deploy
 
-gh pages
+Github Pages
 
 ```shell
 agave markdown docs
@@ -47,4 +48,4 @@ git commit -m"deploy"
 git push
 ```
 
-Setup your repo to look at the docs folder on your main branch.
+Setup your repo to look at the docs folder on your main branch in the repo settings.
