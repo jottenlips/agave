@@ -1,6 +1,6 @@
 {
   "name": "agave-generator",
-  "version": "0.1.3",
+  "version": "0.1.2",
   "description": "Simple static site generator",
   "license": "MIT",
   "esy": {
@@ -25,7 +25,8 @@
   "scripts": {
     "test": "esy x Agave",
     "format": "esy dune build @fmt --auto-promote",
-    "doc": "esy dune build @doc"
+    "doc": "esy dune build @doc",
+    "release": "npm version patch && esy release && pushd _release && npm publish"
   },
   "dependencies": {
     "@esy-ocaml/reason": ">= 3.6.0 < 4.0.0",
