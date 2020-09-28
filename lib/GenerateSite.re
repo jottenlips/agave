@@ -21,6 +21,10 @@ let is_markdown: string => bool =
 let removemd: string => string =
   filename => Str.replace_first(regexmd, "", filename);
 
+let regexmarkdown = Str.regexp("<!-- MARKDOWN -->");
+let addmarkdown: (string, string) => string =
+  (template, content) => Str.replace_first(regexmarkdown, content, template);
+
 exception NotADirectory(string);
 
 let mkdir: string => unit =
@@ -57,6 +61,14 @@ let makedirectories = () => {
 
 let agave = () => {
   let dirs = makedirectories();
+
+  let basehtml =
+    switch (readf(dirs[0] ++ "/base.html")) {
+    | "" => {|
+    |}
+    | x => x
+    };
+
   let markdownfiles =
     Sys.readdir("./markdown")
     |> Array.to_list
@@ -66,14 +78,13 @@ let agave = () => {
   |> List.map(file => mkdir(buildoutdir(file, dirs[1])))
   |> ignore;
 
-  let template = readf(dirs[0]);
-
   markdownfiles
   |> List.fold_left(
        (a, b) =>
          readf("./" ++ dirs[0] ++ "/" ++ b)
          |> Omd.of_string
          |> Omd.to_html(~pindent=true)
+         |> addmarkdown(basehtml)
          |> writef(buildoutdir(b, dirs[1]) ++ "/index.html")
          |> (
            () =>
