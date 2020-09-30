@@ -74,6 +74,61 @@ let defaulthtml = {|<!DOCTYPE html>
   </html>
   |};
 
+let rec buildfiletree: (string, string, string) => string =
+  (inputdir, outputdir, basehtml) => {
+    let markdownfiles =
+      Sys.readdir("./" ++ inputdir)
+      |> Array.to_list
+      |> List.map(x => {
+           let currentfile = inputdir ++ "/" ++ x;
+           Sys.is_directory(currentfile)
+             ? mkdir("./" ++ outputdir)
+               |> (
+                 () => {
+                   let nextoutputdir = "./" ++ outputdir ++ "/" ++ x;
+                   mkdir(nextoutputdir);
+                   buildfiletree(
+                     "./" ++ inputdir ++ "/" ++ x,
+                     nextoutputdir,
+                     basehtml,
+                   );
+                 }
+               )
+             : x;
+         })
+      |> List.filter(x => is_markdown(x));
+
+    markdownfiles
+    |> List.map(file => mkdir(buildoutdir(file, outputdir)))
+    |> ignore;
+
+    markdownfiles
+    |> List.fold_left(
+         (a, b) =>
+           readf("./" ++ inputdir ++ "/" ++ b)
+           |> Omd.of_string
+           |> Omd.to_html(~pindent=true)
+           |> addmarkdown(basehtml)
+           |> writef(buildoutdir(b, outputdir) ++ "/index.html")
+           |> (
+             () =>
+               Pastel.(
+                 <Pastel color=Green>
+                   {"./"
+                    ++ inputdir
+                    ++ "/"
+                    ++ b
+                    ++ " has been added to "
+                    ++ outputdir}
+                 </Pastel>
+               )
+               ++ "\n"
+               ++ a
+           ),
+         "☀️ Done!",
+       );
+  };
+
 let agave = () => {
   let dirs = makedirectories();
 
@@ -83,38 +138,5 @@ let agave = () => {
     | x => x
     };
 
-  let markdownfiles =
-    Sys.readdir("./markdown")
-    |> Array.to_list
-    |> List.filter(x => is_markdown(x));
-
-  markdownfiles
-  |> List.map(file => mkdir(buildoutdir(file, dirs[1])))
-  |> ignore;
-
-  markdownfiles
-  |> List.fold_left(
-       (a, b) =>
-         readf("./" ++ dirs[0] ++ "/" ++ b)
-         |> Omd.of_string
-         |> Omd.to_html(~pindent=true)
-         |> addmarkdown(basehtml)
-         |> writef(buildoutdir(b, dirs[1]) ++ "/index.html")
-         |> (
-           () =>
-             Pastel.(
-               <Pastel color=Green>
-                 {"./"
-                  ++ dirs[0]
-                  ++ "/"
-                  ++ b
-                  ++ " has been added to "
-                  ++ dirs[1]}
-               </Pastel>
-             )
-             ++ "\n"
-             ++ a
-         ),
-       "☀️ Done!",
-     );
+  buildfiletree(dirs[0], dirs[1], basehtml);
 };
