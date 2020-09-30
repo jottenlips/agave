@@ -110,22 +110,8 @@ let rec buildfiletree: (string, string, string) => string =
            |> Omd.to_html(~pindent=true)
            |> addmarkdown(basehtml)
            |> writef(buildoutdir(b, outputdir) ++ "/index.html")
-           |> (
-             () =>
-               Pastel.(
-                 <Pastel color=Green>
-                   {"./"
-                    ++ inputdir
-                    ++ "/"
-                    ++ b
-                    ++ " has been added to "
-                    ++ outputdir}
-                 </Pastel>
-               )
-               ++ "\n"
-               ++ a
-           ),
-         "☀️ Done!",
+           |> (() => Pastel.(<Pastel color=Green> {b ++ "\n" ++ a} </Pastel>)),
+         "",
        );
   };
 
@@ -138,5 +124,5 @@ let agave = () => {
     | x => x
     };
 
-  buildfiletree(dirs[0], dirs[1], basehtml);
+  buildfiletree(dirs[0], dirs[1], basehtml) ++ "\n☀️ Done";
 };
