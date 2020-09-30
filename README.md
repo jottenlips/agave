@@ -50,6 +50,7 @@ Here is an example of using custom base html.
 └──base.html
 └──index.md
 └──another-page.md
+└──topic.md
 └──/topic
     └──2019-1-1.md
     └──2020-1-1.md
@@ -63,6 +64,7 @@ results in
 └──index.html
 └──another-page/index.html
 └──/topic
+    └──index.html
     └──2019-1-1/index.html
     └──2020-1-1/index.html
     └──2021-1-1/index.html
