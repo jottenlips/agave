@@ -1,6 +1,6 @@
 # ☀️ Agave 🍯
 
-Minimal markdown to HTML for flat static sites with pretty URLs.
+Minimal markdown to HTML for static sites with pretty URLs.
 
 ## Install
 
