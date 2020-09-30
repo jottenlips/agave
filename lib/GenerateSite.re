@@ -87,11 +87,14 @@ let rec buildfiletree: (string, string, string) => string =
                  () => {
                    let nextoutputdir = "./" ++ outputdir ++ "/" ++ x;
                    mkdir(nextoutputdir);
-                   buildfiletree(
-                     "./" ++ inputdir ++ "/" ++ x,
-                     nextoutputdir,
-                     basehtml,
-                   );
+                   let res =
+                     buildfiletree(
+                       "./" ++ inputdir ++ "/" ++ x,
+                       nextoutputdir,
+                       basehtml,
+                     );
+                   Format.print_string(res);
+                   "";
                  }
                )
              : x;
@@ -110,7 +113,7 @@ let rec buildfiletree: (string, string, string) => string =
            |> Omd.to_html(~pindent=true)
            |> addmarkdown(basehtml)
            |> writef(buildoutdir(b, outputdir) ++ "/index.html")
-           |> (() => Pastel.(<Pastel color=Green> {b ++ "\n" ++ a} </Pastel>)),
+           |> (() => Pastel.(<Pastel color=Green> {b ++ "\n"} </Pastel>) ++ a),
          "",
        );
   };
@@ -124,5 +127,8 @@ let agave = () => {
     | x => x
     };
 
-  buildfiletree(dirs[0], dirs[1], basehtml) ++ "\n☀️ Done";
+  let res = buildfiletree(dirs[0], dirs[1], basehtml);
+  Format.print_string(res);
+
+  "☀️ Done";
 };
