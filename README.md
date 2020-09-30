@@ -43,6 +43,31 @@ Here is an example of using custom base html.
 
 [Repo](https://github.com/jottenlips/jottenlips.github.io)
 
+## File structure (folders work)
+
+```
+./markdown
+└──base.html
+└──index.md
+└──another-page.md
+└──/topic
+    └──2019-1-1.md
+    └──2020-1-1.md
+    └──2021-1-1.md
+```
+
+results in
+
+```
+./public
+└──index.html
+└──another-page/index.html
+└──/topic
+    └──2019-1-1/index.html
+    └──2020-1-1/index.html
+    └──2021-1-1/index.html
+```
+
 ### Deploy
 
 Github Pages
