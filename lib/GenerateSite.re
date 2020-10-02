@@ -44,21 +44,6 @@ let buildoutdir: (string, string) => string =
     | _ => "./" ++ dirname ++ "/" ++ removemd(filename)
     };
 
-let makedirectories = () => {
-  let inputdir =
-    try(Sys.argv[1]) {
-    | _ => "markdown"
-    };
-
-  let outputdir =
-    try(Sys.argv[2]) {
-    | _ => "public"
-    };
-  mkdir(outputdir);
-
-  [|inputdir, outputdir|];
-};
-
 let defaulthtml = {|<!DOCTYPE html>
   <html>
     <head>
@@ -113,22 +98,49 @@ let rec buildfiletree: (string, string, string) => string =
            |> Omd.to_html(~pindent=true)
            |> addmarkdown(basehtml)
            |> writef(buildoutdir(b, outputdir) ++ "/index.html")
-           |> (() => Pastel.(<Pastel color=Green> {b ++ "\n"} </Pastel>) ++ a),
+           |> (
+             () =>
+               Pastel.(<Pastel color=Green> {"🍯" ++ b ++ "\n"} </Pastel>)
+               ++ a
+           ),
          "",
        );
   };
 
-let agave = () => {
-  let dirs = makedirectories();
+let cmd = {
+  let doc = "CLI for generating static sites from markdown.";
 
-  let basehtml =
-    switch (readf(dirs[0] ++ "/base.html")) {
-    | "" => defaulthtml
-    | x => x
-    };
+  let markdown = {
+    let doc = "Path to your markdown files.";
+    Cmdliner.Arg.(
+      value
+      & opt(string, "markdown")
+      & info(["m", "markdown"], ~docv="markdown", ~doc)
+    );
+  };
 
-  let res = buildfiletree(dirs[0], dirs[1], basehtml);
-  Format.print_string(res);
+  let public = {
+    let doc = "Path to output your static site.";
+    Cmdliner.Arg.(
+      value
+      & opt(string, "public")
+      & info(["p", "public"], ~docv="public", ~doc)
+    );
+  };
 
-  "☀️ Done";
+  let run = (markdown, site) => {
+    let basehtml =
+      switch (readf(markdown ++ "/base.html")) {
+      | "" => defaulthtml
+      | x => x
+      };
+
+    let res = buildfiletree(markdown, site, basehtml);
+    Format.print_string(res);
+    print_endline(Pastel.(<Pastel color=Yellow> "☀️ Done!" </Pastel>));
+  };
+
+  Cmdliner.Term.(const(run) $ markdown $ public, info("agave", ~doc));
 };
+
+let agave = () => Cmdliner.Term.exit @@ Cmdliner.Term.eval(cmd);
