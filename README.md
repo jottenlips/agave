@@ -84,3 +84,7 @@ git push
 ```
 
 Setup your repo to look at the docs folder on your main branch in the repo settings.
+
+Want to support this project?
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/K3K01P2WT)
