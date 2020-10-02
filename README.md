@@ -45,7 +45,7 @@ Here is an example of using custom base html.
 
 [Repo](https://github.com/jottenlips/jottenlips.github.io)
 
-## 📂 File structure (folders work)
+## 📂 File structure
 
 ```
 ./markdown
@@ -72,7 +72,7 @@ results in
     └──2021-1-1/index.html
 ```
 
-### 🧗‍♀️ Deploy your site
+## 🧗‍♀️ Deploy your site
 
 Github Pages
 
