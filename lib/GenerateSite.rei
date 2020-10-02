@@ -1,2 +1,2 @@
 /** Converts .md to html*/
-let agave: unit => string;
+let agave: unit => unit;
