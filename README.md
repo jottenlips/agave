@@ -10,17 +10,19 @@ yarn global add agave-generator
 
 ## Use
 
-```shell
+```console
 mkdir blog
 cd blog
 mkdir markdown
 touch markdown/index.md # home page
 touch markdown/first-post.md # /first-post/ route
-agave markdown public # reads all your readmes in markdown and outputs them to public
+agave # reads all your readmes in ./markdown and outputs them to ./public
 ```
 
-```shell
-agave [markdowndir?] [websitedirectory?]
+For full list of options run:
+
+```console
+agave --help
 ```
 
 ## Customization
@@ -31,7 +33,7 @@ base.html will wrap every generated page.
 
 base.html must contain `<!-- MARKDOWN -->` where you would like your content placed.
 
-```shell
+```console
 touch markdown/base.html
 echo "<html><!-- MARKDOWN --></html>" > markdown/base.html
 agave # run the generator again
@@ -74,8 +76,8 @@ results in
 
 Github Pages
 
-```shell
-agave markdown docs
+```console
+agave --markdown myblog --public docs
 git add --all
 git commit -m"deploy"
 git push
