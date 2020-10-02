@@ -1,14 +1,14 @@
-# ☀️ Agave 🍯
+![Agave Logo](logo.gif)
 
 Minimal markdown to HTML for static sites with pretty URLs.
 
-## Install
+## ☀️ Install
 
 ```
 yarn global add agave-generator
 ```
 
-## Use
+## 🍯 Use
 
 ```console
 mkdir blog
@@ -25,7 +25,7 @@ For full list of options run:
 agave --help
 ```
 
-## Customization
+## 🌿 Customization
 
 Add any base HTML you would like.
 
@@ -45,7 +45,7 @@ Here is an example of using custom base html.
 
 [Repo](https://github.com/jottenlips/jottenlips.github.io)
 
-## File structure (folders work)
+## 📂 File structure (folders work)
 
 ```
 ./markdown
@@ -72,7 +72,7 @@ results in
     └──2021-1-1/index.html
 ```
 
-### Deploy
+### 🧗‍♀️ Deploy your site
 
 Github Pages
 
