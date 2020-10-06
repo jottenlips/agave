@@ -1,8 +1,8 @@
 {
   "name": "agave-generator",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "Simple static site generator",
-  "license": "MIT",
+  "license": "The Hippocratic License 2.1",
   "esy": {
     "build": "dune build -p #{self.name}",
     "buildDev": "refmterr dune build --promote-install-files --root . --only-package #{self.name}",
