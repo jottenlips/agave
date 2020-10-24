@@ -25,7 +25,15 @@ For full list of options run:
 agave --help
 ```
 
-## 🌿 Customization
+## 🏜 Themes
+
+Simply pass the -t argument
+
+```
+agave -t desert
+```
+
+## 🌿 Full Customization
 
 Add any base HTML you would like.
 
