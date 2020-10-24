@@ -109,7 +109,7 @@ let deserthtml = {|
 </html>
 |};
 
-let randmophotohtml = {|
+let randomphotohtml = {|
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -209,6 +209,6 @@ let getTheme: string => string =
   theme =>
     switch (theme) {
     | "desert" => deserthtml
-    | "randomphoto" => randmophotohtml
+    | "randomphoto" => randomphotohtml
     | _ => defaulthtml
     };
