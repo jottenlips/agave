@@ -116,7 +116,7 @@ let cmd = {
   };
 
   let theme = {
-    let doc = "theme name. choices: [desert]";
+    let doc = "theme name. choices: [desert, randomphoto]";
     Cmdliner.Arg.(
       value & opt(string, "") & info(["t", "theme"], ~docv="theme", ~doc)
     );

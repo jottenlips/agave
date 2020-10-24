@@ -109,6 +109,95 @@ let deserthtml = {|
 </html>
 |};
 
+let randomphotohtml = {|
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Blog</title>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+        html {
+          background: #EEE5E9;
+        }
+        body {
+          font-family: 'Josefin Sans', sans-serif;
+          line-height: 26px;
+          margin: 0;
+        }
+
+        img[alt*="small"] {
+          width: 500px;
+        }
+        .coverimage {
+          /* RANDOM PHOTO */
+          background: url(https://picsum.photos/2000/1500);
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-attachment: fixed;
+          min-width: 100%;
+        }
+        h1 {
+          color: #D64933;
+        }
+        h2 {
+          color: #D64933;
+        }
+        h3 {
+          color: #7C7C7C;
+        }
+        code {
+          flex: 1;
+          border-radius: 2px;
+          padding: 4px;
+          background-color: #2B303A;
+          color: #92DCE5;
+          line-height: 200%;
+          word-wrap: break-word;
+        }
+        pre {
+          background-color: #2B303A;
+          width: 90%;
+          border-radius: 6px;
+          padding-top: 10px;
+          padding-left: 10px;
+          padding-right: 10px;
+          padding-bottom: 10px;
+          overflow-x: scroll;
+        }
+        .container {
+          padding-top: 50px;
+          padding-bottom: 50px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+        }
+        .block {
+          max-width: 800px;
+          min-width: 300px;
+          width: 100%;
+          background-color: #EEE5E9;
+          padding: 20px;
+          margin: 15px;
+          overflow-y: scroll;
+          border-radius: 6px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="coverimage" />
+      <div class="container">
+        <div class="block">
+          <!-- MARKDOWN -->
+        </div>
+      </div>
+    </body>
+  </html>
+  |};
+
 let hasTheme: string => bool =
   theme =>
     switch (theme) {
@@ -120,5 +209,6 @@ let getTheme: string => string =
   theme =>
     switch (theme) {
     | "desert" => deserthtml
+    | "randomphoto" => randomphotohtml
     | _ => defaulthtml
     };
