@@ -89,6 +89,7 @@ let deserthtml = {|
       .block {
         max-width: 800px;
         min-width: 300px;
+        width: 100%;
         background-color: #ebebeb;
         padding: 20px;
         margin: 15px;
