@@ -115,19 +115,35 @@ let cmd = {
     );
   };
 
-  let run = (markdown, site) => {
+  let theme = {
+    let doc = "theme name. choices: [desert]";
+    Cmdliner.Arg.(
+      value
+      & opt(string, "theme")
+      & info(["t", "theme"], ~docv="theme", ~doc)
+    );
+  };
+
+  let run = (markdown, site, theme) => {
     let basehtml =
-      switch (readf(markdown ++ "/base.html")) {
-      | "" => bloggerhtml
-      | x => x
-      };
+      hasTheme(theme)
+        ? getTheme(theme)
+        : (
+          switch (readf(markdown ++ "/base.html")) {
+          | "" => getTheme(theme)
+          | x => x
+          }
+        );
 
     let res = buildfiletree(markdown, site, basehtml);
     Format.print_string(res);
     print_endline(Pastel.(<Pastel color=Yellow> "☀️ Done!" </Pastel>));
   };
 
-  Cmdliner.Term.(const(run) $ markdown $ public, info("agave", ~doc));
+  Cmdliner.Term.(
+    const(run) $ markdown $ public $ theme,
+    info("agave", ~doc),
+  );
 };
 
 let agave = () => Cmdliner.Term.exit @@ Cmdliner.Term.eval(cmd);

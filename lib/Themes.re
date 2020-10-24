@@ -13,8 +13,13 @@ let defaulthtml = {|<!DOCTYPE html>
   </html>
   |};
 
-let bloggerhtml = {|
-  <!DOCTYPE html>
+/* #ebebeb
+   #a5d79d
+   #dd7755
+   #5c578c
+   #4e2f61 */
+let deserthtml = {|
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -24,12 +29,14 @@ let bloggerhtml = {|
       @import url("https://fonts.googleapis.com/css2?family=Epilogue&display=swap");
       @import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
       html {
-        background: #ffffff;
+        background: #dd7755;
       }
       body {
         font-family: "Epilogue", sans-serif;
         line-height: 26px;
+        margin: 0;
       }
+
       img[alt*="small"] {
         width: 500px;
       }
@@ -38,21 +45,25 @@ let bloggerhtml = {|
         /* RANDOM PHOTO */
         /* background: url(https://picsum.photos/2000/1500); */
         background-repeat: no-repeat;
-        background-size: 100vw;
-        background-attachment:fixed;
+        background-size: cover;
+        background-attachment: fixed;
+        min-width: 100%;
       }
-      svg {
-        display: none;
-        height: 0;
-        width: 0;
-        color: clear;
+      h1 {
+        color: #4e2f61;
+      }
+      h2 {
+        color: #5c578c;
+      }
+      h3 {
+        color: #dd7755;
       }
       code {
         flex: 1;
         border-radius: 2px;
         padding: 4px;
         background-color: #000000;
-        color: #ffffff;
+        color: #a5d79d;
         line-height: 200%;
         word-wrap: break-word;
       }
@@ -68,20 +79,21 @@ let bloggerhtml = {|
       }
       .container {
         padding-top: 50px;
+        padding-bottom: 50px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        min-width: 100%;
       }
       .block {
-        width: 100%;
         max-width: 800px;
         min-width: 300px;
-        background-color: aliceblue;
+        background-color: #ebebeb;
         padding: 20px;
+        margin: 15px;
         overflow-y: scroll;
+        border-radius: 6px;
       }
     </style>
   </head>
@@ -95,3 +107,17 @@ let bloggerhtml = {|
   </body>
 </html>
 |};
+
+let hasTheme: string => bool =
+  theme =>
+    switch (theme) {
+    | "" => false
+    | _ => true
+    };
+
+let getTheme: string => string =
+  theme =>
+    switch (theme) {
+    | "desert" => deserthtml
+    | _ => defaulthtml
+    };
