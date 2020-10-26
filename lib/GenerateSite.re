@@ -1,4 +1,5 @@
 open Themes;
+open Server;
 
 let readf: string => string =
   path =>
@@ -107,7 +108,7 @@ let cmd = {
   };
 
   let public = {
-    let doc = "Path to output your static site.";
+    let doc = "Path to output your static site. This is also your path for serving files for local development";
     Cmdliner.Arg.(
       value
       & opt(string, "public")
@@ -122,7 +123,14 @@ let cmd = {
     );
   };
 
-  let run = (markdown, site, theme) => {
+  let serve = {
+    let doc = "port to serve on";
+    Cmdliner.Arg.(
+      value & opt(string, "") & info(["s", "serve"], ~docv="serve", ~doc)
+    );
+  };
+
+  let run = (markdown, site, theme, serve) => {
     let basehtml =
       hasTheme(theme)
         ? getTheme(theme)
@@ -136,10 +144,17 @@ let cmd = {
     let res = buildfiletree(markdown, site, basehtml);
     Format.print_string(res);
     print_endline(Pastel.(<Pastel color=Yellow> "☀️ Done!" </Pastel>));
+    switch (serve) {
+    | "" => () => ""
+    | _ => () => { 
+      runserver(site)
+      "serving on port: " ++ serve 
+    }()
+    };
   };
 
   Cmdliner.Term.(
-    const(run) $ markdown $ public $ theme,
+    const(run) $ markdown $ public $ theme $ serve,
     info("agave", ~doc),
   );
 };
