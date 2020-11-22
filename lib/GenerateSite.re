@@ -1,4 +1,5 @@
 open Themes;
+open Server;
 
 let readf: string => string =
   path =>
@@ -122,7 +123,16 @@ let cmd = {
     );
   };
 
-  let run = (markdown, site, theme) => {
+
+  let serve = {
+    let doc = "serve files";
+    Cmdliner.Arg.(
+      value & opt(bool, false) & info(["s", "serve"], ~docv="serve", ~doc)
+    );
+  };
+
+
+  let run = (markdown, public, theme, serve) => {
     let basehtml =
       hasTheme(theme)
         ? getTheme(theme)
@@ -133,13 +143,20 @@ let cmd = {
           }
         );
 
-    let res = buildfiletree(markdown, site, basehtml);
+    let res = buildfiletree(markdown, public, basehtml);
     Format.print_string(res);
+
+    switch (serve) {
+    | true => 
+      Server.serveFiles(public)
+    | _ => ""
+    };
+
     print_endline(Pastel.(<Pastel color=Yellow> "☀️ Done!" </Pastel>));
   };
 
   Cmdliner.Term.(
-    const(run) $ markdown $ public $ theme,
+    const(run) $ markdown $ public $ theme $ serve,
     info("agave", ~doc),
   );
 };
