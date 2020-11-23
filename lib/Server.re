@@ -2,12 +2,20 @@ open ReWeb;
 
 let addPath = (public, path) => public++ "/"++ path ++ "index.html"
 
-let getPage = (public, path, _request) => 
-  path |> String.concat("/") |> addPath(public) |> Response.of_file;
+
+let getPage = (public, path, _request) => {
+  let resp = path |> String.concat("/") |> addPath(public) |> Response.of_file(
+    ~headers=[(
+      "content-security-policy", "style-src 'unsafe-inline';",
+    )
+    ])
+  resp
+}
   
 let server = (public) => {
     fun
     | (`GET, [...path]) => {
+
       let file = getPage(public, [...path])
       file
       }

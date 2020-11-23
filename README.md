@@ -98,3 +98,5 @@ Want to support this project?
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/K3K01P2WT)
+
+      /* let _resp = Response.add_header(~name="content-security-policy", ~value="default-src 'self' style-src 'self' 'unsafe-inline';") */

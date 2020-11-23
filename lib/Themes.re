@@ -42,8 +42,6 @@ let deserthtml = {|
       }
       .coverimage {
         background: url(https://i.picsum.photos/id/247/1200/800.jpg?hmac=jAKee_4tKtq3oEQw_QgJbqXlUcx8ON2vfJfNt1Zki_4);
-        /* RANDOM PHOTO */
-        /* background: url(https://picsum.photos/2000/1500); */
         background-repeat: no-repeat;
         background-size: cover;
         background-attachment: fixed;
@@ -117,7 +115,7 @@ let randomphotohtml = {|
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>Blog</title>
       <style>
-        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+        /* @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap'); */
         html {
           background: #EEE5E9;
         }
@@ -131,7 +129,6 @@ let randomphotohtml = {|
           width: 500px;
         }
         .coverimage {
-          /* RANDOM PHOTO */
           background: url(https://picsum.photos/2000/1500);
           background-repeat: no-repeat;
           background-size: cover;

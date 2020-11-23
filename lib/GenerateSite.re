@@ -143,14 +143,15 @@ let cmd = {
           }
         );
 
+    let _serve = switch (serve) {
+        | true => 
+          Server.serveFiles(public)
+        | _ => ""
+        };
+
+
     let res = buildfiletree(markdown, public, basehtml);
     Format.print_string(res);
-
-    let _serve = switch (serve) {
-    | true => 
-      Server.serveFiles(public)
-    | _ => ""
-    };
 
     print_endline(Pastel.(<Pastel color=Yellow> "☀️ Done!" </Pastel>));
   };
