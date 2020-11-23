@@ -127,7 +127,7 @@ let cmd = {
   let serve = {
     let doc = "serve files";
     Cmdliner.Arg.(
-      value & opt(bool, false) & info(["s", "serve"], ~docv="serve", ~doc)
+      value & flag & info(["s", "serve"], ~docv="serve", ~doc)
     );
   };
 
@@ -146,7 +146,7 @@ let cmd = {
     let res = buildfiletree(markdown, public, basehtml);
     Format.print_string(res);
 
-    switch (serve) {
+    let _serve = switch (serve) {
     | true => 
       Server.serveFiles(public)
     | _ => ""
