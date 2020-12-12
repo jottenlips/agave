@@ -5,28 +5,19 @@
   "license": "The Hippocratic License 2.1",
   "esy": {
     "build": "dune build -p #{self.name}",
-    "buildDev": "refmterr dune build --promote-install-files --root . --only-package #{self.name}",
+    "buildDev":
+      "refmterr dune build --promote-install-files --root . --only-package #{self.name}",
     "NOTE": "Optional release Section. Customizes result of `esy release`",
-    "release": {
-      "bin": [
-        "Agave"
-      ]
-    },
-    "e": {
-      "rewritePrefix": true,
-      "bin": [
-        "Agave"
-      ]
-    },
-    "buildEnv": {
-      "ODOC_SYNTAX": "re"
-    }
+    "release": { "bin": [ "Agave" ] },
+    "e": { "rewritePrefix": true, "bin": [ "Agave" ] },
+    "buildEnv": { "ODOC_SYNTAX": "re" }
   },
   "scripts": {
     "test": "esy x Agave",
     "format": "esy dune build @fmt --auto-promote",
     "doc": "esy dune build @doc",
-    "release": "npm version patch && esy release && pushd _release && npm publish"
+    "release":
+      "npm version patch && esy release && pushd _release && npm publish"
   },
   "dependencies": {
     "@esy-ocaml/reason": ">= 3.6.0 < 4.0.0",
@@ -34,15 +25,14 @@
     "@opam/cmdliner": "1.0.3",
     "@opam/dune": ">=2.6",
     "@opam/omd": "*",
+    "@reason-native-web/esy-openssl": "^1.1.1007",
     "@reason-native/console": "*",
     "@reason-native/pastel": "*",
     "@reason-native/rely": "^3.2.1",
     "@yawaramin/re-web": ">= 0.7.0 < 1.0.0",
     "ocaml": "~4.10.0"
   },
-  "resolutions": {
-    "@opam/omd": "ocaml/omd:omd.opam#fd7fa4e"
-  },
+  "resolutions": { "@opam/omd": "ocaml/omd:omd.opam#fd7fa4e" },
   "devDependencies": {
     "@opam/merlin": "*",
     "@reason-native/rely": "*",
