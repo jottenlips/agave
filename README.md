@@ -41,8 +41,11 @@ base.html will wrap every generated page.
 
 base.html must contain `<!-- MARKDOWN -->` where you would like your content placed.
 
+If you have a styles.css file in the markdown folder, it will be copied to the deployment folder.
+
 ```console
 touch markdown/base.html
+touch markdown/styles.css
 echo "<html><!-- MARKDOWN --></html>" > markdown/base.html
 agave # run the generator again
 ```
@@ -93,8 +96,19 @@ git push
 
 Setup your repo to look at the docs folder on your main branch in the repo settings.
 
+## 🧪 Run your site locally
+
+```console
+agave -s
+# 🏃‍♀️ Running on localhost:8080
+```
+
+🐛 TODO: fix CSP so remote images and fonts will show up when running locally.
+
 Want to support this project?
 
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/K3K01P2WT)
+
+      /* let _resp = Response.add_header(~name="content-security-policy", ~value="default-src 'self' style-src 'self' 'unsafe-inline';") */

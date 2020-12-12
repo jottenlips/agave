@@ -1,0 +1,1 @@
+let serveFiles: string => string;

@@ -37,6 +37,7 @@
     "@reason-native/console": "*",
     "@reason-native/pastel": "*",
     "@reason-native/rely": "^3.2.1",
+    "@yawaramin/re-web": ">= 0.7.0 < 1.0.0",
     "ocaml": "~4.10.0"
   },
   "resolutions": {
