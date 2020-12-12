@@ -133,6 +133,13 @@ let cmd = {
 
 
   let run = (markdown, public, theme, serve) => {
+
+    let _serve = switch (serve) {
+      | true => 
+        Server.serveFiles(public)
+      | _ => ""
+    };
+
     let basehtml =
       hasTheme(theme)
         ? getTheme(theme)
@@ -152,13 +159,6 @@ let cmd = {
           | x => x
           }
         );
-
-    let _serve = switch (serve) {
-        | true => 
-          Server.serveFiles(public)
-        | _ => ""
-        };
-
 
     let res = buildfiletree(markdown, public, basehtml);
     /* Write css file */

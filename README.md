@@ -96,6 +96,15 @@ git push
 
 Setup your repo to look at the docs folder on your main branch in the repo settings.
 
+## 🧪 Run your site locally
+
+```console
+agave -s
+# 🏃‍♀️ Running on localhost:8080
+```
+
+🐛 TODO: fix CSP so remote images and fonts will show up when running locally.
+
 Want to support this project?
 
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
