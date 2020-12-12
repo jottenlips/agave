@@ -11,7 +11,7 @@ license: "MIT"
 homepage: "https://github.com/jottenlips/agave"
 bug-reports: "https://github.com/jottenlips/agave"
 dev-repo: "git://git@github.com:jottenlips/agave.git"
-depends: [ "ocaml" "ocamlfind" "bos" "pastel" "omd" "str" ]
+depends: [ "ocaml" "ocamlfind" "bos" "pastel" "omd" "str", "esy-openssl" ]
 build: [
   ["./configure" "--prefix=%{prefix}%"]
   [make]
