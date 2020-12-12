@@ -41,8 +41,11 @@ base.html will wrap every generated page.
 
 base.html must contain `<!-- MARKDOWN -->` where you would like your content placed.
 
+If you have a styles.css file in the markdown folder, it will be copied to the deployment folder.
+
 ```console
 touch markdown/base.html
+touch markdown/styles.css
 echo "<html><!-- MARKDOWN --></html>" > markdown/base.html
 agave # run the generator again
 ```

@@ -143,6 +143,16 @@ let cmd = {
           }
         );
 
+    let baseCss = 
+        hasTheme(theme)
+        ? getThemeCss(theme)
+        : (
+          switch (readf(markdown ++ "/styles.css")) {
+          | "" => getThemeCss(theme)
+          | x => x
+          }
+        );
+
     let _serve = switch (serve) {
         | true => 
           Server.serveFiles(public)
@@ -151,6 +161,9 @@ let cmd = {
 
 
     let res = buildfiletree(markdown, public, basehtml);
+    /* Write css file */
+    writef(public++"/styles.css", baseCss)
+
     Format.print_string(res);
 
     print_endline(Pastel.(<Pastel color=Yellow> "☀️ Done!" </Pastel>));
