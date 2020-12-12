@@ -1,4 +1,5 @@
 (executable
  (name Agave)
  (public_name Agave)
- (libraries console.lib lib))
+ (libraries console.lib lib)
+ (modes byte exe))
