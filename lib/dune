@@ -2,5 +2,5 @@
  (name lib)
  (flags
   (-w -40 -w +26))
- (public_name agave-generator)
+ (link_flags (-ccopt -static))
  (libraries pastel.lib bos str omd cmdliner re-web lwt))
