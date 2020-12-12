@@ -19,7 +19,7 @@ touch markdown/first-post.md # /first-post/ route
 agave # reads all your readmes in ./markdown and outputs them to ./public
 ```
 
-For full list of options run:
+For the full list of options run `help`.
 
 ```console
 agave --help
@@ -27,21 +27,21 @@ agave --help
 
 ## 🏜 Themes
 
-Simply pass the -t argument
+Simply pass the -t argument and the theme name
 
-```
+```console
 agave -t desert
 ```
 
 ## 🌿 Full Customization
 
-Add any base HTML you would like.
+If you didn't find a theme for you you can add any base HTML and CSS you would like.
 
 base.html will wrap every generated page.
 
 base.html must contain `<!-- MARKDOWN -->` where you would like your content placed.
 
-If you have a styles.css file in the markdown folder, it will be copied to the deployment folder.
+If you have a `styles.css` file in the markdown folder, it will be copied to the deployment folder.
 
 ```console
 touch markdown/base.html
@@ -50,7 +50,7 @@ echo "<html><!-- MARKDOWN --></html>" > markdown/base.html
 agave # run the generator again
 ```
 
-Here is an example of using custom base html.
+Here is an example of using custom `base.html`.
 
 [Blog](https://jottenlips.github.io/)
 
@@ -95,6 +95,7 @@ git push
 ```
 
 Setup your repo to look at the docs folder on your main branch in the repo settings.
+g
 
 ## 🧪 Run your site locally
 
