@@ -1,5 +1,5 @@
 {
-  "checksum": "7a862c0b474bc9ebb0cb65c1ad2487b5",
+  "checksum": "2375ffb55ce2c8388037c3bbe3907cd1",
   "root": "agave-generator@link-dev:./package.json",
   "node": {
     "yarn-pkg-config@github:esy-ocaml/yarn-pkg-config#db3a0b63883606dd57c54a7158d560d6cba8cd79@d41d8cd9": {
@@ -68,20 +68,6 @@
       "dependencies": [],
       "devDependencies": []
     },
-    "esy-openssl@1.1.1006@d41d8cd9": {
-      "id": "esy-openssl@1.1.1006@d41d8cd9",
-      "name": "esy-openssl",
-      "version": "1.1.1006",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/esy-openssl/-/esy-openssl-1.1.1006.tgz#sha1:48007a3fdcfadd608c0a07908dfbf904730d906a"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
-      "devDependencies": []
-    },
     "esy-m4@github:esy-packages/esy-m4#c7cf0ac9221be2b1f9d90e83559ca08397a629e7@d41d8cd9": {
       "id":
         "esy-m4@github:esy-packages/esy-m4#c7cf0ac9221be2b1f9d90e83559ca08397a629e7@d41d8cd9",
@@ -139,13 +125,10 @@
       },
       "overrides": [],
       "dependencies": [
-        "ocaml@4.10.1002@d41d8cd9", "esy-openssl@1.1.1006@d41d8cd9",
-        "@yawaramin/re-web@0.7.1@d41d8cd9",
+        "ocaml@4.10.1002@d41d8cd9", "@yawaramin/re-web@0.7.0@d41d8cd9",
         "@reason-native/rely@3.2.1@d41d8cd9",
         "@reason-native/pastel@0.3.0@d41d8cd9",
         "@reason-native/console@0.1.0@d41d8cd9",
-        "@reason-native-web/lwt_ssl@1.1.3005@d41d8cd9",
-        "@reason-native-web/esy-openssl@1.1.1007@d41d8cd9",
         "@opam/omd@github:ocaml/omd:omd.opam#fd7fa4e@d41d8cd9",
         "@opam/dune@opam:2.7.1@f5f493bc",
         "@opam/cmdliner@opam:1.0.3@96d31520",
@@ -156,14 +139,14 @@
         "@opam/odoc@opam:1.5.2@236518eb", "@opam/merlin@opam:3.4.2@9a4d1fd4"
       ]
     },
-    "@yawaramin/re-web@0.7.1@d41d8cd9": {
-      "id": "@yawaramin/re-web@0.7.1@d41d8cd9",
+    "@yawaramin/re-web@0.7.0@d41d8cd9": {
+      "id": "@yawaramin/re-web@0.7.0@d41d8cd9",
       "name": "@yawaramin/re-web",
-      "version": "0.7.1",
+      "version": "0.7.0",
       "source": {
         "type": "install",
         "source": [
-          "archive:https://registry.npmjs.org/@yawaramin/re-web/-/re-web-0.7.1.tgz#sha1:279347ed840afc2dbe5e98058706295ff568e2c7"
+          "archive:https://registry.npmjs.org/@yawaramin/re-web/-/re-web-0.7.0.tgz#sha1:884e5ce58e0d784a1ed710bf35ed2bd3e9bfc45c"
         ]
       },
       "overrides": [],

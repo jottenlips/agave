@@ -34,13 +34,10 @@
     "@opam/cmdliner": "1.0.3",
     "@opam/dune": ">=2.6",
     "@opam/omd": "*",
-    "@reason-native-web/esy-openssl": "^1.1.1007",
-    "@reason-native-web/lwt_ssl": "^1.1.3005",
     "@reason-native/console": "*",
     "@reason-native/pastel": "*",
     "@reason-native/rely": "^3.2.1",
     "@yawaramin/re-web": ">= 0.7.0 < 1.0.0",
-    "esy-openssl": "^1.1.1006",
     "ocaml": "~4.10.0"
   },
   "resolutions": {
