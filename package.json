@@ -1,6 +1,6 @@
 {
   "name": "agave-generator",
-  "version": "0.1.27",
+  "version": "0.1.25",
   "description": "Simple static site generator",
   "license": "The Hippocratic License 2.1",
   "esy": {
@@ -41,7 +41,13 @@
     "ocaml": "~4.10.0"
   },
   "resolutions": {
-    "@opam/omd": "ocaml/omd:omd.opam#fd7fa4e"
+    "@opam/omd": "ocaml/omd:omd.opam#fd7fa4e",
+    "@reason-native-web/esy-openssl": "1.1.1006",
+    "@reason-native-web/gluten-lwt-unix": ">= 0.2.1 < 1.0.0",
+    "@reason-native-web/h1": ">= 1.2.2001 < 2.0.0",
+    "@reason-native-web/h1-lwt-unix": ">= 1.2.2001 < 2.0.0",
+    "@reason-native-web/piaf": ">= 1.4.0 < 2.0.0",
+    "@reason-native-web/websocketaf": ">= 1.2.0 < 2.0.0"
   },
   "devDependencies": {
     "@opam/merlin": "*",
