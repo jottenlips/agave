@@ -1,5 +1,5 @@
 (executable
  (name Agave)
  (public_name Agave)
- (libraries console.lib lib)
- (modes byte exe))
+ (modes byte exe)
+ (libraries console.lib lib lwt re-web))
