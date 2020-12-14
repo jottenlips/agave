@@ -95,9 +95,9 @@ git push
 ```
 
 Setup your repo to look at the docs folder on your main branch in the repo settings.
-g
 
-## 🧪 Run your site locally
+
+## 🧪 Run your site locally (WIP)
 
 ```console
 agave -s
