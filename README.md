@@ -97,7 +97,7 @@ git push
 Setup your repo to look at the docs folder on your main branch in the repo settings.
 
 
-## 🧪 Run your site locally (WIP)
+## 🧪 Run your site locally
 
 ```console
 # for now, to preview locally
@@ -105,12 +105,16 @@ cd public # or docs folder for gh pages
 python3 -m http.server 8000
 ```
 
+### (WIP)
+
 ```console
 agave -s
 # 🏃‍♀️ Running on localhost:8080
 ```
 
 🐛 TODO: fix CSP so remote images and fonts will show up when running locally.
+
+## 🐪 Support 
 
 Want to support this project?
 
