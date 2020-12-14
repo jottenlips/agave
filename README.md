@@ -100,6 +100,12 @@ Setup your repo to look at the docs folder on your main branch in the repo setti
 ## 🧪 Run your site locally (WIP)
 
 ```console
+# for now, to preview locally
+cd public # or docs folder for gh pages
+python3 -m http.server 8000
+```
+
+```console
 agave -s
 # 🏃‍♀️ Running on localhost:8080
 ```
