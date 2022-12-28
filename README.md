@@ -30,7 +30,7 @@ agave --help
 Simply pass the -t argument and the theme name
 
 ```console
-agave -t desert
+agave -t randomphoto
 ```
 
 ## 🌿 Full Customization
