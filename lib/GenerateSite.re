@@ -1,5 +1,4 @@
 open Themes;
-open Server;
 
 let readf: string => string =
   path =>
@@ -124,21 +123,9 @@ let cmd = {
   };
 
 
-  let serve = {
-    let doc = "serve files";
-    Cmdliner.Arg.(
-      value & flag & info(["s", "serve"], ~docv="serve", ~doc)
-    );
-  };
 
 
-  let run = (markdown, public, theme, serve) => {
-
-    let _serve = switch (serve) {
-      | true => 
-        Server.serveFiles(public)
-      | _ => ""
-    };
+  let run = (markdown, public, theme) => {
 
     let basehtml =
       hasTheme(theme)
@@ -170,7 +157,7 @@ let cmd = {
   };
 
   Cmdliner.Term.(
-    const(run) $ markdown $ public $ theme $ serve,
+    const(run) $ markdown $ public $ theme,
     info("agave", ~doc),
   );
 };
