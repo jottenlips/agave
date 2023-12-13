@@ -1,3 +1,5 @@
+This project is moving to [amino](https://github.com/jottenlips/amino-ssg) soon. I am rewriting the core logic in Rust.
+
 ![Agave Logo](logo.gif)
 
 Minimal markdown to HTML for static sites with pretty URLs.
