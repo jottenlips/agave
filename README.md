@@ -1,4 +1,6 @@
-This project is moving to [amino](https://github.com/jottenlips/amino-ssg) soon. I am rewriting the core logic in Rust.
+⚠️ This project is moving to [amino](https://github.com/jottenlips/amino-ssg) soon. I am rewriting the core logic in Rust.
+
+# Deprecated: please check out [amino](https://github.com/jottenlips/amino-ssg)
 
 ![Agave Logo](logo.gif)
 
