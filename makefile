@@ -1,11 +1,8 @@
-.PHONY: deps
-deps:
-	opam install --deps-only .
-
-.PHONY: install
-install: build
-	dune install
-
-.PHONY: build
 build:
 	dune build
+
+run:
+	dune exec bin/agave_main.exe
+
+clean:
+	dune clean
