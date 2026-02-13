@@ -16,8 +16,6 @@ jobs:
             artifact: agave-linux-x64
           - os: macos-latest
             artifact: agave-darwin-arm64
-          - os: macos-13
-            artifact: agave-darwin-x64
 
     steps:
       - uses: actions/checkout@v4
@@ -80,7 +78,6 @@ jobs:
           generate_release_notes: true
           files: |
             agave-linux-x64/agave-linux-x64
-            agave-darwin-x64/agave-darwin-x64
             agave-darwin-arm64/agave-darwin-arm64
 
       - uses: actions/setup-node@v4

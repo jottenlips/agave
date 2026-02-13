@@ -13,7 +13,6 @@ function getPlatformBinaryName() {
   const arch = process.arch;
 
   if (platform === "linux" && arch === "x64") return "agave-linux-x64";
-  if (platform === "darwin" && arch === "x64") return "agave-darwin-x64";
   if (platform === "darwin" && arch === "arm64") return "agave-darwin-arm64";
 
   console.error(
