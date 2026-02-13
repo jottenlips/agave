@@ -64,8 +64,6 @@ let handle_request = (public_dir, client_fd) => {
     | _ => "/"
     };
 
-  Printf.printf("%s -> %s\n%!", first_line, resolve_path(public_dir, request_path));
-
   let file_path = resolve_path(public_dir, request_path);
 
   if (Sys.file_exists(file_path) && !Sys.is_directory(file_path)) {

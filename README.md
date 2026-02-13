@@ -132,6 +132,30 @@ agave -s
 # Server running at http://localhost:8080/
 ```
 
+You can also serve any existing directory without generating:
+
+```console
+agave -p ./docs -s
+```
+
+## Release
+
+1. Commit and tag:
+
+```console
+git add -A && git commit -m "v0.2.0: description"
+git tag v0.2.0
+git push origin main --tags
+```
+
+2. GitHub Actions builds native binaries for `linux-x64`, `darwin-x64`, and `darwin-arm64` and attaches them to a GitHub Release.
+
+3. Publish to npm:
+
+```console
+npm publish
+```
+
 ## Support
 
 Want to support this project?
