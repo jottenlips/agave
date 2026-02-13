@@ -1,11 +1,16 @@
-.PHONY: deps
-deps:
-	opam install --deps-only .
+.PHONY: deps build install clean test
 
-.PHONY: install
+deps:
+	opam install . --deps-only -y
+
+build:
+	dune build
+
 install: build
 	dune install
 
-.PHONY: build
-build:
-	dune build
+clean:
+	dune clean
+
+test: build
+	dune exec bin/Agave.exe -- --help

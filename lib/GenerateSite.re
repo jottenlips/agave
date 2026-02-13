@@ -1,6 +1,9 @@
 open Themes;
 open Server;
 
+let green = s => "\027[32m" ++ s ++ "\027[0m";
+let yellow = s => "\027[33m" ++ s ++ "\027[0m";
+
 let readf: string => string =
   path =>
     switch (Bos.OS.File.read(Fpath.v(path))) {
@@ -83,12 +86,12 @@ let rec buildfiletree: (string, string, string) => string =
          (a, b) =>
            readf("./" ++ inputdir ++ "/" ++ b)
            |> Omd.of_string
-           |> Omd.to_html(~pindent=true)
+           |> Omd.to_html
            |> addmarkdown(basehtml)
            |> writef(buildoutdir(b, outputdir) ++ "/index.html")
            |> (
              () =>
-               Pastel.(<Pastel color=Green> {"🍯" ++ b ++ "\n"} </Pastel>)
+               green("🍯" ++ b ++ "\n")
                ++ a
            ),
          "",
@@ -123,7 +126,6 @@ let cmd = {
     );
   };
 
-
   let serve = {
     let doc = "serve files";
     Cmdliner.Arg.(
@@ -131,48 +133,48 @@ let cmd = {
     );
   };
 
-
   let run = (markdown, public, theme, serve) => {
+    if (Sys.file_exists(markdown) && Sys.is_directory(markdown)) {
+      let basehtml =
+        hasTheme(theme)
+          ? getTheme(theme)
+          : (
+            switch (readf(markdown ++ "/base.html")) {
+            | "" => getTheme(theme)
+            | x => x
+            }
+          );
 
-    let _serve = switch (serve) {
-      | true => 
-        Server.serveFiles(public)
-      | _ => ""
+      let baseCss =
+          hasTheme(theme)
+          ? getThemeCss(theme)
+          : (
+            switch (readf(markdown ++ "/styles.css")) {
+            | "" => getThemeCss(theme)
+            | x => x
+            }
+          );
+
+      let res = buildfiletree(markdown, public, basehtml);
+      writef(public ++ "/styles.css", baseCss);
+
+      Format.print_string(res);
+
+      print_endline(yellow("☀️ Done!"));
     };
 
-    let basehtml =
-      hasTheme(theme)
-        ? getTheme(theme)
-        : (
-          switch (readf(markdown ++ "/base.html")) {
-          | "" => getTheme(theme)
-          | x => x
-          }
-        );
-
-    let baseCss = 
-        hasTheme(theme)
-        ? getThemeCss(theme)
-        : (
-          switch (readf(markdown ++ "/styles.css")) {
-          | "" => getThemeCss(theme)
-          | x => x
-          }
-        );
-
-    let res = buildfiletree(markdown, public, basehtml);
-    /* Write css file */
-    writef(public++"/styles.css", baseCss)
-
-    Format.print_string(res);
-
-    print_endline(Pastel.(<Pastel color=Yellow> "☀️ Done!" </Pastel>));
+    if (serve) {
+      let _ = Server.serveFiles(public);
+      ();
+    };
   };
 
-  Cmdliner.Term.(
-    const(run) $ markdown $ public $ theme $ serve,
-    info("agave", ~doc),
-  );
+  let term = Cmdliner.Term.(const(run) $ markdown $ public $ theme $ serve);
+  let info = Cmdliner.Cmd.info("agave", ~doc);
+  Cmdliner.Cmd.v(info, term);
 };
 
-let agave = () => Cmdliner.Term.exit @@ Cmdliner.Term.eval(cmd);
+let agave = () => {
+  let _ = Cmdliner.Cmd.eval(cmd);
+  ();
+};

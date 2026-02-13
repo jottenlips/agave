@@ -1,18 +1,43 @@
-⚠️ This project is moving to [amino](https://github.com/jottenlips/amino-ssg) soon. I am rewriting the core logic in Rust.
-
-# Deprecated: please check out [amino](https://github.com/jottenlips/amino-ssg)
-
 ![Agave Logo](logo.gif)
 
 Minimal markdown to HTML for static sites with pretty URLs.
 
-## ☀️ Install
+Written in [ReasonML](https://reasonml.github.io/) with native OCaml toolchain (opam + dune).
+
+## Install
+
+### Via npm
 
 ```
-yarn global add agave-generator
+npm install -g agave-generator
 ```
 
-## 🍯 Use
+### Build from source
+
+Requires [opam](https://opam.ocaml.org/) and OCaml 5.1+.
+
+```console
+opam install . --deps-only -y
+dune build
+dune install
+```
+
+### Link locally for development
+
+```console
+opam install . --deps-only -y
+dune build
+cp _build/default/bin/Agave.exe bin/agave-native
+npm link --ignore-scripts
+```
+
+Now `agave` is available globally. To unlink:
+
+```console
+npm unlink -g agave-generator
+```
+
+## Use
 
 ```console
 mkdir blog
@@ -29,7 +54,7 @@ For the full list of options run `help`.
 agave --help
 ```
 
-## 🏜 Themes
+## Themes
 
 Simply pass the -t argument and the theme name
 
@@ -37,7 +62,7 @@ Simply pass the -t argument and the theme name
 agave -t desert
 ```
 
-## 🌿 Full Customization
+## Full Customization
 
 If you didn't find a theme for you you can add any base HTML and CSS you would like.
 
@@ -60,7 +85,7 @@ Here is an example of using custom `base.html`.
 
 [Repo](https://github.com/jottenlips/jottenlips.github.io)
 
-## 📂 File structure
+## File structure
 
 ```
 ./markdown
@@ -87,7 +112,7 @@ results in
     └──2021-1-1/index.html
 ```
 
-## 🧗‍♀️ Deploy your site
+## Deploy your site
 
 Github Pages
 
@@ -100,25 +125,38 @@ git push
 
 Setup your repo to look at the docs folder on your main branch in the repo settings.
 
-
-## 🧪 Run your site locally
-
-```console
-# for now, to preview locally
-cd public # or docs folder for gh pages
-python3 -m http.server 8000
-```
-
-### (WIP)
+## Run your site locally
 
 ```console
 agave -s
-# 🏃‍♀️ Running on localhost:8080
+# Server running at http://localhost:8080/
 ```
 
-🐛 TODO: fix CSP so remote images and fonts will show up when running locally.
+You can also serve any existing directory without generating:
 
-## 🐪 Support 
+```console
+agave -p ./docs -s
+```
+
+## Release
+
+1. Commit and tag:
+
+```console
+git add -A && git commit -m "v0.2.0: description"
+git tag v0.2.0
+git push origin main --tags
+```
+
+2. GitHub Actions builds native binaries for `linux-x64`, `darwin-x64`, and `darwin-arm64` and attaches them to a GitHub Release.
+
+3. Publish to npm:
+
+```console
+npm publish
+```
+
+## Support
 
 Want to support this project?
 
