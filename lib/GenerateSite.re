@@ -37,6 +37,13 @@ type metadata = {
   image: option(string),
 };
 
+type page_entry = {
+  url: string,
+  pageTitle: string,
+  pageDescription: string,
+  filename: string,
+};
+
 let emptyMeta = {title: None, description: None, image: None};
 
 let shorthandRegex = Str.regexp("@\\([a-zA-Z]+\\) \\(.*\\)");
@@ -134,6 +141,14 @@ let escapeHtml: string => string =
     |> Str.global_replace(Str.regexp("\""), "&quot;")
     |> Str.global_replace(Str.regexp("<"), "&lt;")
     |> Str.global_replace(Str.regexp(">"), "&gt;");
+
+let escapeJson: string => string =
+  s =>
+    s
+    |> Str.global_replace(Str.regexp("\\\\"), "\\\\\\\\")
+    |> Str.global_replace(Str.regexp("\""), "\\\\\"")
+    |> Str.global_replace(Str.regexp("\n"), "\\\\n")
+    |> Str.global_replace(Str.regexp("\r"), "\\\\r");
 
 let buildMetaTags: (metadata, string, string) => (string, string) =
   (meta, markdown, basehtml) => {
@@ -236,58 +251,164 @@ let buildoutdir: (string, string) => string =
     | _ => "./" ++ dirname ++ "/" ++ removemd(filename)
     };
 
-let rec buildfiletree: (string, string, string) => string =
+let rec buildfiletree: (string, string, string) => (string, list(page_entry)) =
   (inputdir, outputdir, basehtml) => {
-    let markdownfiles =
+    let allfiles =
       Sys.readdir("./" ++ inputdir)
-      |> Array.to_list
-      |> List.map(x => {
+      |> Array.to_list;
+
+    /* First pass: process directories, collect their entries */
+    let subdirEntries =
+      allfiles
+      |> List.filter(x => {
            let currentfile = inputdir ++ "/" ++ x;
-           Sys.is_directory(currentfile)
-             ? mkdir("./" ++ outputdir)
-               |> (
-                 () => {
-                   let nextoutputdir = "./" ++ outputdir ++ "/" ++ x;
-                   mkdir(nextoutputdir);
-                   let res =
-                     buildfiletree(
-                       "./" ++ inputdir ++ "/" ++ x,
-                       nextoutputdir,
-                       basehtml,
-                     );
-                   Format.print_string(res);
-                   "";
-                 }
-               )
-             : x;
+           Sys.is_directory(currentfile);
          })
+      |> List.fold_left(
+           (acc, x) => {
+             mkdir("./" ++ outputdir);
+             let nextoutputdir = "./" ++ outputdir ++ "/" ++ x;
+             mkdir(nextoutputdir);
+             let (res, entries) =
+               buildfiletree(
+                 "./" ++ inputdir ++ "/" ++ x,
+                 nextoutputdir,
+                 basehtml,
+               );
+             Format.print_string(res);
+             acc @ entries;
+           },
+           [],
+         );
+
+    /* Second pass: process markdown files */
+    let markdownfiles =
+      allfiles
       |> List.filter(x => is_markdown(x));
 
     markdownfiles
     |> List.map(file => mkdir(buildoutdir(file, outputdir)))
     |> ignore;
 
-    markdownfiles
-    |> List.fold_left(
-         (a, b) => {
-           let rawContent = readf("./" ++ inputdir ++ "/" ++ b);
-           let (meta, markdown) = parseShorthand(rawContent);
-           let (pageTitle, metaTags) =
-             buildMetaTags(meta, markdown, basehtml);
-           markdown
-           |> Omd.of_string
-           |> Omd.to_html
-           |> addmarkdown(basehtml)
-           |> injectMetaTags(_, pageTitle, metaTags)
-           |> writef(buildoutdir(b, outputdir) ++ "/index.html")
-           |> (
-             () =>
-               green("🍯" ++ b ++ "\n")
-               ++ a
-           );
-         },
-         "",
-       );
+    let (progressStr, fileEntries) =
+      markdownfiles
+      |> List.fold_left(
+           ((accStr, accEntries), b) => {
+             let rawContent = readf("./" ++ inputdir ++ "/" ++ b);
+             let (meta, markdown) = parseShorthand(rawContent);
+             let (pageTitle, metaTags) =
+               buildMetaTags(meta, markdown, basehtml);
+             let outdir = buildoutdir(b, outputdir);
+             markdown
+             |> Omd.of_string
+             |> Omd.to_html
+             |> addmarkdown(basehtml)
+             |> injectMetaTags(_, pageTitle, metaTags)
+             |> writef(outdir ++ "/index.html");
+             let urlPath = {
+               let raw = outdir;
+               /* Strip leading "./" and the output dir prefix */
+               let prefixLen = String.length("./" ++ outputdir);
+               let pathPart =
+                 if (String.length(raw) > prefixLen) {
+                   String.sub(raw, prefixLen, String.length(raw) - prefixLen);
+                 } else {
+                   "/";
+                 };
+               if (pathPart == "") { "/" } else { pathPart ++ "/" };
+             };
+             let description =
+               switch (meta.description) {
+               | Some(d) => d
+               | None =>
+                 switch (extractFirstParagraph(markdown)) {
+                 | Some(p) => p
+                 | None => ""
+                 }
+               };
+             let entry = {
+               url: urlPath,
+               pageTitle,
+               pageDescription: description,
+               filename: removemd(b),
+             };
+             (
+               green("🍯" ++ b ++ "\n") ++ accStr,
+               accEntries @ [entry],
+             );
+           },
+           ("", []),
+         );
+
+    (progressStr, subdirEntries @ fileEntries);
+  };
+
+let buildSitemapHtml: list(page_entry) => string =
+  entries => {
+    let jsonEntries =
+      entries
+      |> List.map(e =>
+           "{\"url\":\""
+           ++ escapeJson(e.url)
+           ++ "\",\"title\":\""
+           ++ escapeJson(e.pageTitle)
+           ++ "\",\"description\":\""
+           ++ escapeJson(e.pageDescription)
+           ++ "\",\"filename\":\""
+           ++ escapeJson(e.filename)
+           ++ "\"}"
+         )
+      |> String.concat(",");
+    let json = "[" ++ jsonEntries ++ "]";
+    "<div id=\"sitemap-container\">"
+    ++ "<input type=\"text\" id=\"sitemap-search\" placeholder=\"Search pages...\" "
+    ++ "style=\"width:100%;padding:8px;margin-bottom:16px;box-sizing:border-box;font-size:16px;\" />"
+    ++ "<ul id=\"sitemap-results\" style=\"list-style:none;padding:0;\"></ul>"
+    ++ "</div>"
+    ++ "<script>"
+    ++ "var pages = "
+    ++ json
+    ++ ";"
+    ++ "var input = document.getElementById('sitemap-search');"
+    ++ "var results = document.getElementById('sitemap-results');"
+    ++ "function render(filter) {"
+    ++ "  var q = filter.toLowerCase();"
+    ++ "  results.innerHTML = '';"
+    ++ "  pages.forEach(function(p) {"
+    ++ "    if (!q || p.title.toLowerCase().indexOf(q) !== -1 || p.description.toLowerCase().indexOf(q) !== -1 || p.filename.toLowerCase().indexOf(q) !== -1) {"
+    ++ "      var li = document.createElement('li');"
+    ++ "      li.style.marginBottom = '12px';"
+    ++ "      li.innerHTML = '<a href=\"' + p.url + '\">' + p.title + '</a>' + (p.description ? '<br/><small>' + p.description + '</small>' : '');"
+    ++ "      results.appendChild(li);"
+    ++ "    }"
+    ++ "  });"
+    ++ "}"
+    ++ "input.addEventListener('input', function() { render(this.value); });"
+    ++ "render('');"
+    ++ "</script>";
+  };
+
+let generateSitemap:
+  (string, string, string, list(page_entry)) => unit =
+  (markdownDir, outputdir, basehtml, entries) => {
+    let template =
+      switch (readf(markdownDir ++ "/search.html")) {
+      | "" => basehtml
+      | t => t
+      };
+    let sitemapContent = buildSitemapHtml(entries);
+    let meta = {
+      title: Some("Sitemap"),
+      description: Some("Index of all pages"),
+      image: None,
+    };
+    let (pageTitle, metaTags) = buildMetaTags(meta, "", template);
+    let html =
+      sitemapContent
+      |> addmarkdown(template)
+      |> injectMetaTags(_, pageTitle, metaTags);
+    mkdir(outputdir ++ "/sitemap");
+    writef(outputdir ++ "/sitemap/index.html", html);
   };
 
 let cmd = {
@@ -347,8 +468,9 @@ let cmd = {
             }
           );
 
-      let res = buildfiletree(markdown, public, basehtml);
+      let (res, pageEntries) = buildfiletree(markdown, public, basehtml);
       writef(public ++ "/styles.css", baseCss);
+      generateSitemap(markdown, public, basehtml, pageEntries);
 
       Format.print_string(res);
 
