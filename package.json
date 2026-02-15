@@ -1,6 +1,6 @@
 {
   "name": "agave-generator",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Minimal markdown to HTML static site generator",
   "license": "Hippocratic-2.1",
   "repository": {

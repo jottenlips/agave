@@ -36,8 +36,8 @@ let buildoutdir: (string, string) => string =
     | _ => "./" ++ dirname ++ "/" ++ removemd(filename)
     };
 
-let rec buildfiletree: (string, string, string) => (string, list(page_entry)) =
-  (inputdir, outputdir, basehtml) => {
+let rec buildfiletree: (string, string, string, string) => (string, list(page_entry)) =
+  (inputdir, outputdir, urlPrefix, basehtml) => {
     let allfiles =
       Sys.readdir("./" ++ inputdir)
       |> Array.to_list;
@@ -58,6 +58,7 @@ let rec buildfiletree: (string, string, string) => (string, list(page_entry)) =
                buildfiletree(
                  "./" ++ inputdir ++ "/" ++ x,
                  nextoutputdir,
+                 urlPrefix ++ "/" ++ x,
                  basehtml,
                );
              Format.print_string(res);
@@ -90,18 +91,12 @@ let rec buildfiletree: (string, string, string) => (string, list(page_entry)) =
              |> addmarkdown(basehtml)
              |> injectMetaTags(_, pageTitle, metaTags)
              |> writef(outdir ++ "/index.html");
-             let urlPath = {
-               let raw = outdir;
-               /* Strip leading "./" and the output dir prefix */
-               let prefixLen = String.length("./" ++ outputdir);
-               let pathPart =
-                 if (String.length(raw) > prefixLen) {
-                   String.sub(raw, prefixLen, String.length(raw) - prefixLen);
-                 } else {
-                   "/";
-                 };
-               if (pathPart == "") { "/" } else { pathPart ++ "/" };
-             };
+             let urlPath =
+               switch (b) {
+               | "index.md" =>
+                 if (urlPrefix == "") { "/" } else { urlPrefix ++ "/" }
+               | _ => urlPrefix ++ "/" ++ removemd(b) ++ "/"
+               };
              let description =
                switch (meta.description) {
                | Some(d) => d
@@ -126,6 +121,29 @@ let rec buildfiletree: (string, string, string) => (string, list(page_entry)) =
          );
 
     (progressStr, subdirEntries @ fileEntries);
+  };
+
+let generateSitemap:
+  (string, string, string, list(page_entry)) => unit =
+  (markdownDir, outputdir, basehtml, entries) => {
+    let template =
+      switch (readf(markdownDir ++ "/search.html")) {
+      | "" => basehtml
+      | t => t
+      };
+    let sitemapContent = buildSitemapHtml(entries);
+    let meta = {
+      title: Some("Sitemap"),
+      description: Some("Index of all pages"),
+      image: None,
+    };
+    let (pageTitle, metaTags) = buildMetaTags(meta, "", template);
+    let html =
+      sitemapContent
+      |> addmarkdown(template)
+      |> injectMetaTags(_, pageTitle, metaTags);
+    mkdir(outputdir ++ "/sitemap");
+    writef(outputdir ++ "/sitemap/index.html", html);
   };
 
 let cmd = {
@@ -185,7 +203,7 @@ let cmd = {
             }
           );
 
-      let (res, pageEntries) = buildfiletree(markdown, public, basehtml);
+      let (res, pageEntries) = buildfiletree(markdown, public, "", basehtml);
       writef(public ++ "/styles.css", baseCss);
       generateSitemap(markdown, public, basehtml, pageEntries);
 
