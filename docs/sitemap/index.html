@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sitemap</title>
+  <link rel="stylesheet" href="/styles.css">
+
+    <meta property="og:title" content="Sitemap" />
+    <meta name="twitter:title" content="Sitemap" />
+    <meta name="description" content="Index of all pages" />
+    <meta property="og:description" content="Index of all pages" />
+    <meta name="twitter:description" content="Index of all pages" />
+    <meta name="twitter:card" content="summary" />
+  </head>
+<body>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/blog/">Blog</a>
+    <a href="/sitemap/">Sitemap</a>
+  </nav>
+  <main>
+    <div id="sitemap-container"><input type="text" id="sitemap-search" placeholder="Search pages..." style="width:100%;padding:8px;margin-bottom:16px;box-sizing:border-box;font-size:16px;" /><ul id="sitemap-results" style="list-style:none;padding:0;"></ul></div><script>var pages = [{"url":"/markdown-tips/","title":"Markdown Tips and Tricks","description":"Power user tips for writing great content in Agave","filename":"markdown-tips"},{"url":"/deploying/","title":"Deploying Your Agave Site","description":"How to deploy your static site to GitHub Pages, Netlify, or any host","filename":"deploying"},{"url":"/getting-started/","title":"Getting Started with Agave","description":"A beginner's guide to building your first static site with Agave","filename":"getting-started"},{"url":"//","title":"Blog","description":"Latest posts from the Agave blog","filename":"index"},{"url":"/contact/","title":"Contact Us","description":"Get in touch with the Agave team","filename":"contact"},{"url":"//","title":"Agave Test Site","description":"A demo site built with Agave static site generator","filename":"index"},{"url":"/about/","title":"About Agave","description":"Agave is a simple static site generator written in ReasonML","filename":"about"}];var input = document.getElementById('sitemap-search');var results = document.getElementById('sitemap-results');function render(filter) {  var q = filter.toLowerCase();  results.innerHTML = '';  pages.forEach(function(p) {    if (!q || p.title.toLowerCase().indexOf(q) !== -1 || p.description.toLowerCase().indexOf(q) !== -1 || p.filename.toLowerCase().indexOf(q) !== -1) {      var li = document.createElement('li');      li.style.marginBottom = '12px';      li.innerHTML = '<a href="' + p.url + '">' + p.title + '</a>' + (p.description ? '<br/><small>' + p.description + '</small>' : '');      results.appendChild(li);    }  });}input.addEventListener('input', function() { render(this.value); });render('');</script>
+  </main>
+  <footer>
+    <p>Built with Agave</p>
+  </footer>
+</body>
+</html>

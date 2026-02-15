@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started with Agave</title>
+  <link rel="stylesheet" href="/styles.css">
+
+    <meta property="og:title" content="Getting Started with Agave" />
+    <meta name="twitter:title" content="Getting Started with Agave" />
+    <meta name="description" content="A beginner's guide to building your first static site with Agave" />
+    <meta property="og:description" content="A beginner's guide to building your first static site with Agave" />
+    <meta name="twitter:description" content="A beginner's guide to building your first static site with Agave" />
+    <meta name="twitter:card" content="summary" />
+  </head>
+<body>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/blog/">Blog</a>
+    <a href="/sitemap/">Sitemap</a>
+  </nav>
+  <main>
+    <h1 id="getting-started-with-agave">Getting Started with Agave</h1>
+<p>Setting up your first Agave site takes just a few minutes.</p>
+<h2 id="installation">Installation</h2>
+<p>Install via opam or build from source:</p>
+<pre><code>dune build
+dune install
+</code></pre>
+<h2 id="create-your-first-site">Create Your First Site</h2>
+<ol>
+<li>Create a <code>markdown</code> directory
+</li>
+<li>Add a <code>base.html</code> template with <code>&lt;!-- MARKDOWN --&gt;</code> placeholder
+</li>
+<li>Write some <code>.md</code> files
+</li>
+<li>Run <code>agave -m markdown -p public</code>
+</li>
+</ol>
+<h2 id="adding-meta-tags">Adding Meta Tags</h2>
+<p>Use shorthand notation at the top of your markdown files:</p>
+<pre><code>@title My Page Title
+@description A brief description of this page
+@image /images/hero.jpg
+</code></pre>
+<p>These get injected as Open Graph and Twitter Card meta tags automatically.</p>
+
+  </main>
+  <footer>
+    <p>Built with Agave</p>
+  </footer>
+</body>
+</html>
