@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deploying Your Agave Site</title>
+  <link rel="stylesheet" href="/styles.css">
+
+    <meta property="og:title" content="Deploying Your Agave Site" />
+    <meta name="twitter:title" content="Deploying Your Agave Site" />
+    <meta name="description" content="How to deploy your static site to GitHub Pages, Netlify, or any host" />
+    <meta property="og:description" content="How to deploy your static site to GitHub Pages, Netlify, or any host" />
+    <meta name="twitter:description" content="How to deploy your static site to GitHub Pages, Netlify, or any host" />
+    <meta name="twitter:card" content="summary" />
+  </head>
+<body>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/blog/">Blog</a>
+    <a href="/sitemap/">Sitemap</a>
+  </nav>
+  <main>
+    <h1 id="deploying-your-agave-site">Deploying Your Agave Site</h1>
+<p>Once you've built your site, deploying is straightforward since it's just static files.</p>
+<h2 id="github-pages">GitHub Pages</h2>
+<ol>
+<li>Push your <code>public</code> directory to a <code>gh-pages</code> branch
+</li>
+<li>Enable GitHub Pages in your repo settings
+</li>
+<li>Your site is live!
+</li>
+</ol>
+<h2 id="netlify">Netlify</h2>
+<ol>
+<li>Connect your repository
+</li>
+<li>Set build command: <code>dune exec bin/Agave.exe -- -m markdown -p public</code>
+</li>
+<li>Set publish directory: <code>public</code>
+</li>
+</ol>
+<h2 id="any-static-host">Any Static Host</h2>
+<p>The <code>public</code> directory contains plain HTML, CSS, and nothing else. Upload it anywhere that serves static files — S3, Cloudflare Pages, Vercel, or even a simple nginx server.</p>
+
+  </main>
+  <footer>
+    <p>Built with Agave</p>
+  </footer>
+</body>
+</html>
