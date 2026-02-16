@@ -7,11 +7,10 @@ Setting up your first Agave site takes just a few minutes.
 
 ## Installation
 
-Install via opam or build from source:
+Install via npm:
 
 ```
-dune build
-dune install
+npm install -g agave-generator
 ```
 
 ## Create Your First Site
