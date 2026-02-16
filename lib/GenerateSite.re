@@ -7,6 +7,26 @@ open Server;
 let green = s => "\027[32m" ++ s ++ "\027[0m";
 let yellow = s => "\027[33m" ++ s ++ "\027[0m";
 
+let buildNavLinks: list((string, string)) => string =
+  links =>
+    switch (links) {
+    | [] => ""
+    | _ =>
+      let items =
+        links
+        |> List.map(((url, label)) =>
+             "<li style=\"display:inline-block;margin:0.25em 0.5em;\"><a href=\""
+             ++ url
+             ++ "\">"
+             ++ label
+             ++ "</a></li>"
+           )
+        |> String.concat("\n        ");
+      "\n<nav class=\"subfolder-nav\" style=\"margin-top:2em;padding-top:1em;border-top:1px solid currentColor;opacity:0.8;\">\n  <ul style=\"list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:0.25em;\">\n        "
+      ++ items
+      ++ "\n  </ul>\n</nav>\n";
+    };
+
 let readf: string => string =
   path =>
     switch (Bos.OS.File.read(Fpath.v(path))) {
@@ -42,13 +62,17 @@ let rec buildfiletree: (string, string, string, string) => (string, list(page_en
       Sys.readdir("./" ++ inputdir)
       |> Array.to_list;
 
-    /* First pass: process directories, collect their entries */
-    let subdirEntries =
+    /* Collect subdirectory names */
+    let subdirNames =
       allfiles
       |> List.filter(x => {
            let currentfile = inputdir ++ "/" ++ x;
            Sys.is_directory(currentfile);
-         })
+         });
+
+    /* First pass: process directories, collect their entries */
+    let subdirEntries =
+      subdirNames
       |> List.fold_left(
            (acc, x) => {
              mkdir("./" ++ outputdir);
@@ -66,6 +90,12 @@ let rec buildfiletree: (string, string, string, string) => (string, list(page_en
            },
            [],
          );
+
+    /* Build nav links for subdirectories */
+    let navLinks =
+      subdirNames
+      |> List.map(name => (urlPrefix ++ "/" ++ name ++ "/", name))
+      |> buildNavLinks;
 
     /* Second pass: process markdown files */
     let markdownfiles =
@@ -85,9 +115,11 @@ let rec buildfiletree: (string, string, string, string) => (string, list(page_en
              let (pageTitle, metaTags) =
                buildMetaTags(meta, markdown, basehtml);
              let outdir = buildoutdir(b, outputdir);
-             markdown
-             |> Omd.of_string
-             |> Omd.to_html
+             let htmlContent =
+               markdown
+               |> Omd.of_string
+               |> Omd.to_html;
+             (htmlContent ++ navLinks)
              |> addmarkdown(basehtml)
              |> injectMetaTags(_, pageTitle, metaTags)
              |> writef(outdir ++ "/index.html");
@@ -184,24 +216,16 @@ let cmd = {
   let run = (markdown, public, theme, serve) => {
     if (Sys.file_exists(markdown) && Sys.is_directory(markdown)) {
       let basehtml =
-        hasTheme(theme)
-          ? getTheme(theme)
-          : (
-            switch (readf(markdown ++ "/base.html")) {
-            | "" => getTheme(theme)
-            | x => x
-            }
-          );
+        switch (readf(markdown ++ "/base.html")) {
+        | "" => getTheme(theme)
+        | x => x
+        };
 
       let baseCss =
-          hasTheme(theme)
-          ? getThemeCss(theme)
-          : (
-            switch (readf(markdown ++ "/styles.css")) {
-            | "" => getThemeCss(theme)
-            | x => x
-            }
-          );
+        switch (readf(markdown ++ "/styles.css")) {
+        | "" => getThemeCss(theme)
+        | x => x
+        };
 
       let (res, pageEntries) = buildfiletree(markdown, public, "", basehtml);
       writef(public ++ "/styles.css", baseCss);

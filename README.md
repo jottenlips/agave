@@ -72,6 +72,22 @@ Available themes:
 - **spice** - Psychedelic melange, molten oranges and gold shimmer
 - **randomphoto** - Random cover photo with a light palette
 
+## Example Site with Theme Previews
+
+The `example/` directory contains a demo site with preview pages for every built-in theme. To build it:
+
+```console
+cd example
+bash build-examples.sh
+```
+
+This generates the main site and a themed preview page for each theme at `public/themes/<theme>/`. To view it locally:
+
+```console
+agave -m markdown -p public -s
+# Visit http://localhost:8080/ and click through the Theme Gallery
+```
+
 ## Full Customization
 
 If you didn't find a theme for you you can add any base HTML and CSS you would like.
