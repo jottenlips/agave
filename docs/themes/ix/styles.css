@@ -1,0 +1,200 @@
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap");
+html {
+  background: #0a0a12;
+  height: 100%;
+}
+
+body {
+  font-family: "Share Tech Mono", monospace;
+  line-height: 26px;
+  margin: 0;
+  color: #b0b0d0;
+}
+
+img[alt*="small"] {
+  height: 500px;
+}
+
+img[alt*="extrasmall"] {
+  height: 250px;
+}
+
+.coverimage {
+  background: linear-gradient(135deg, #0a0a12 0%, #1a0a2e 30%, #0a1a2e 60%, #0a0a12 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  min-width: 100%;
+  max-width: 300%;
+  height: 100%;
+}
+
+h1 {
+  font-family: "Orbitron", sans-serif;
+  color: #00ff88;
+  line-height: 110%;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow: 0 0 10px #00ff8844, 0 0 30px #00ff8822;
+}
+
+h2 {
+  font-family: "Orbitron", sans-serif;
+  color: #ff00ff;
+  line-height: 110%;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #ff00ff44;
+}
+
+h3 {
+  color: #00ccff;
+  line-height: 110%;
+  text-shadow: 0 0 8px #00ccff33;
+}
+
+code {
+  border-radius: 3px;
+  background-color: #0d0d1a;
+  color: #00ff88;
+  line-height: 200%;
+  word-wrap: break-word;
+  border: 1px solid #1a1a3a;
+}
+
+pre {
+  background-color: #0d0d1a;
+  width: 90%;
+  border-radius: 6px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  overflow-x: scroll;
+  border: 1px solid #1a1a3a;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.05);
+}
+
+.container {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #0a0a12;
+}
+
+.block {
+  max-width: 800px;
+  min-width: 270px;
+  width: 90%;
+  background-color: #12121f;
+  padding: 20px;
+  margin-bottom: 15px;
+  overflow-y: auto;
+  border-radius: 6px;
+  border: 1px solid #2a1a4a;
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.05), 0 0 40px rgba(0, 255, 136, 0.03);
+}
+
+.nav {
+  max-width: 800px;
+  min-width: 300px;
+  width: 90%;
+  background-color: #12121f;
+  padding: 10px;
+  overflow-y: auto;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  border: 1px solid #2a1a4a;
+}
+
+.footer {
+  max-width: 800px;
+  min-width: 300px;
+  width: 90%;
+  background-color: #12121f;
+  padding: 10px;
+  overflow-y: auto;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  border: 1px solid #2a1a4a;
+}
+
+@media only screen and (max-width: 500px) {
+  .nav {
+    max-width: 800px;
+    min-width: 300px;
+    width: 90%;
+    background-color: #12121f;
+    padding: 10px;
+    overflow-y: scroll;
+    border-radius: 6px;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    flex-direction: column;
+  }
+  .footer {
+    max-width: 800px;
+    min-width: 300px;
+    width: 90%;
+    background-color: #12121f;
+    padding: 10px;
+    border-radius: 6px;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    flex-direction: column;
+  }
+  .coverimage {
+    background: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-width: 100%;
+    max-width: 300%;
+    height: 100%;
+  }
+  .container {
+    padding-top: 20px;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: #ff00ff;
+  align-items: center;
+}
+
+a:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  color: #00ff88;
+  text-shadow: 0 0 8px #00ff8844;
+}
+
+.back {
+  text-decoration: underline;
+}
