@@ -59,8 +59,18 @@ agave --help
 Simply pass the -t argument and the theme name
 
 ```console
-agave -t desert
+agave -t arrakis
 ```
+
+Available themes:
+
+- **arrakis** - Deep desert, spice orange and warm ochre on dark sand
+- **caladan** - Ocean world, lush blues and greens
+- **giediprime** - Black and white minimalist, stark industrial
+- **ix** - 90s cyberdelia, neon on dark
+- **salusasecundus** - Brutalist, raw concrete with heavy type
+- **spice** - Psychedelic melange, molten oranges and gold shimmer
+- **randomphoto** - Random cover photo with a light palette
 
 ## Full Customization
 
