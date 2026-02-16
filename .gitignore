@@ -8,7 +8,6 @@ _release
 *.install
 public/
 /public
-markdown/
 /markdown
 
 .DS_Store

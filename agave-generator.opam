@@ -1,6 +1,6 @@
 opam-version: "2.0"
 name: "agave-generator"
-version: "0.2.4"
+version: "0.2.5"
 synopsis: "Minimal markdown to HTML static site generator"
 description: """
 Minimal markdown to HTML for static sites with pretty URLs.
