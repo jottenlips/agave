@@ -168,7 +168,7 @@ let cmd = {
   };
 
   let theme = {
-    let doc = "theme name. choices: [desert, randomphoto]";
+    let doc = "theme name. choices: [arrakis, caladan, giediprime, ix, salusasecundus, spice, randomphoto]";
     Cmdliner.Arg.(
       value & opt(string, "") & info(["t", "theme"], ~docv="theme", ~doc)
     );
