@@ -87,8 +87,7 @@ let buildTopNav: string => string =
       @ List.map(
           name => "<a href=\"/" ++ name ++ "/\">" ++ capitalize(name) ++ "</a>",
           allNames,
-        )
-      @ ["<a href=\"/sitemap/\">Sitemap</a>"];
+        );
     "<nav>\n    "
     ++ String.concat("\n    ", links)
     ++ "\n  </nav>";
@@ -266,7 +265,9 @@ let cmd = {
         };
 
       let topNav = buildTopNav(markdown);
+      let footer = "<a href=\"/sitemap/\">Sitemap</a>";
       let basehtml = injectNav(basehtml, topNav);
+      let basehtml = injectFooter(basehtml, footer);
       let (res, pageEntries) = buildfiletree(markdown, public, "", basehtml);
       writef(public ++ "/styles.css", baseCss);
       generateSitemap(markdown, public, basehtml, pageEntries);

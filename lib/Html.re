@@ -108,6 +108,28 @@ let injectNav: (string, string) => string =
       }
     };
 
+let footerCloseRegex = Str.regexp("</footer>");
+let bodyCloseRegex = Str.regexp("</body>");
+
+let injectFooter: (string, string) => string =
+  (template, footerHtml) =>
+    switch (footerHtml) {
+    | "" => template
+    | _ =>
+      try({
+        let _ = Str.search_forward(footerCloseRegex, template, 0);
+        Str.replace_first(footerCloseRegex, "\n    " ++ footerHtml ++ "\n  </footer>", template);
+      }) {
+      | Not_found =>
+        try({
+          let _ = Str.search_forward(bodyCloseRegex, template, 0);
+          Str.replace_first(bodyCloseRegex, "  <footer>\n    " ++ footerHtml ++ "\n  </footer>\n</body>", template);
+        }) {
+        | Not_found => template
+        }
+      }
+    };
+
 let regexmarkdown = Str.regexp("<!-- MARKDOWN -->");
 
 let addmarkdown: (string, string) => string =
