@@ -92,6 +92,22 @@ let buildMetaTags: (metadata, string, string) => (string, string) =
     (pageTitle, tags^);
   };
 
+let bodyRegex = Str.regexp("<body[^>]*>");
+
+let injectNav: (string, string) => string =
+  (template, navHtml) =>
+    switch (navHtml) {
+    | "" => template
+    | _ =>
+      try({
+        let _ = Str.search_forward(bodyRegex, template, 0);
+        let bodyTag = Str.matched_string(template);
+        Str.replace_first(bodyRegex, bodyTag ++ "\n  " ++ navHtml, template);
+      }) {
+      | Not_found => template
+      }
+    };
+
 let regexmarkdown = Str.regexp("<!-- MARKDOWN -->");
 
 let addmarkdown: (string, string) => string =
