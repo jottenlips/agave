@@ -31,6 +31,8 @@ body {
 
 nav {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
   padding: 16px 0;
   border-bottom: 2px solid #2d5016;
@@ -189,6 +191,15 @@ pre {
   border-radius: 2px;
   border-top: 3px solid #c2853e;
   box-shadow: 0 2px 12px rgba(61,43,26,0.15);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .nav {
@@ -406,6 +417,15 @@ pre {
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
 .nav {
   max-width: 800px;
   min-width: 300px;
@@ -621,6 +641,15 @@ pre {
   overflow-y: auto;
   border-radius: 0;
   border: 1px solid #333333;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .nav {
@@ -841,6 +870,15 @@ pre {
   border-radius: 6px;
   border: 1px solid #2a1a4a;
   box-shadow: 0 0 20px rgba(255, 0, 255, 0.05), 0 0 40px rgba(0, 255, 136, 0.03);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .nav {
@@ -1065,6 +1103,15 @@ pre {
   border-radius: 0;
   border-top: 6px solid #cc2200;
   box-shadow: 8px 8px 0px #6b6b63;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .nav {
@@ -1323,6 +1370,15 @@ pre {
   border-radius: 8px;
   border: 1px solid #4a2000;
   box-shadow: 0 0 25px rgba(255, 136, 0, 0.06), inset 0 0 30px rgba(255, 170, 0, 0.02);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .nav {
