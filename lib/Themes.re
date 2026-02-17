@@ -35,8 +35,7 @@ nav {
   gap: 16px;
   padding: 16px 0;
   border-bottom: 2px solid #2d5016;
-  margin: 0 auto 32px;
-  max-width: 800px;
+  margin-bottom: 32px;
 }
 
 nav a {
@@ -198,8 +197,9 @@ nav {
   flex-wrap: wrap;
   gap: 12px;
   padding: 10px;
-  margin: 0 auto 10px;
   max-width: 800px;
+  min-width: 270px;
+  width: 90%;
 }
 
 .nav {
@@ -422,8 +422,9 @@ nav {
   flex-wrap: wrap;
   gap: 12px;
   padding: 10px;
-  margin: 0 auto 10px;
   max-width: 800px;
+  min-width: 270px;
+  width: 90%;
 }
 
 .nav {
@@ -648,8 +649,9 @@ nav {
   flex-wrap: wrap;
   gap: 12px;
   padding: 10px;
-  margin: 0 auto 10px;
   max-width: 800px;
+  min-width: 270px;
+  width: 90%;
 }
 
 .nav {
@@ -877,8 +879,9 @@ nav {
   flex-wrap: wrap;
   gap: 12px;
   padding: 10px;
-  margin: 0 auto 10px;
   max-width: 800px;
+  min-width: 270px;
+  width: 90%;
 }
 
 .nav {
@@ -1110,8 +1113,9 @@ nav {
   flex-wrap: wrap;
   gap: 12px;
   padding: 10px;
-  margin: 0 auto 10px;
   max-width: 800px;
+  min-width: 270px;
+  width: 90%;
 }
 
 .nav {
@@ -1377,8 +1381,9 @@ nav {
   flex-wrap: wrap;
   gap: 12px;
   padding: 10px;
-  margin: 0 auto 10px;
   max-width: 800px;
+  min-width: 270px;
+  width: 90%;
 }
 
 .nav {
