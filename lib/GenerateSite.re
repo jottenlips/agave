@@ -7,24 +7,27 @@ open Server;
 let green = s => "\027[32m" ++ s ++ "\027[0m";
 let yellow = s => "\027[33m" ++ s ++ "\027[0m";
 
-let buildNavLinks: list((string, string)) => string =
-  links =>
-    switch (links) {
-    | [] => ""
+let buildBackArrow: string => string =
+  urlPrefix =>
+    switch (urlPrefix) {
+    | "" => ""
     | _ =>
-      let items =
-        links
-        |> List.map(((url, label)) =>
-             "<li style=\"display:inline-block;margin:0.25em 0.5em;\"><a href=\""
-             ++ url
-             ++ "\">"
-             ++ label
-             ++ "</a></li>"
-           )
-        |> String.concat("\n        ");
-      "\n<nav class=\"subfolder-nav\" style=\"margin-top:2em;padding-top:1em;border-top:1px solid currentColor;opacity:0.8;\">\n  <ul style=\"list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:0.25em;\">\n        "
-      ++ items
-      ++ "\n  </ul>\n</nav>\n";
+      let parts =
+        String.split_on_char('/', urlPrefix)
+        |> List.filter(s => s != "");
+      let parentUrl =
+        switch (parts) {
+        | [] => "/"
+        | [_] => "/"
+        | _ =>
+          let parentParts = List.filteri((i, _) => i < List.length(parts) - 1, parts);
+          "/" ++ String.concat("/", parentParts) ++ "/"
+        };
+      "<a href=\""
+      ++ parentUrl
+      ++ "\" style=\"display:inline-block;margin-bottom:1em;text-decoration:none;color:currentColor;opacity:0.7;\" aria-label=\"Go back\">"
+      ++ "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"19\" y1=\"12\" x2=\"5\" y2=\"12\"></line><polyline points=\"12 19 5 12 12 5\"></polyline></svg>"
+      ++ "</a>\n";
     };
 
 let readf: string => string =
@@ -55,6 +58,43 @@ let buildoutdir: (string, string) => string =
     | "index.md" => "./" ++ dirname
     | _ => "./" ++ dirname ++ "/" ++ removemd(filename)
     };
+
+let capitalize: string => string =
+  s =>
+    switch (String.length(s)) {
+    | 0 => s
+    | _ => String.uppercase_ascii(String.sub(s, 0, 1)) ++ String.sub(s, 1, String.length(s) - 1)
+    };
+
+let buildTopNav: string => string =
+  inputdir => {
+    let allfiles =
+      Sys.readdir("./" ++ inputdir)
+      |> Array.to_list;
+    let subdirNames =
+      allfiles
+      |> List.filter(x => Sys.is_directory("./" ++ inputdir ++ "/" ++ x))
+      |> List.sort(String.compare);
+    let pageNames =
+      allfiles
+      |> List.filter(x => is_markdown(x) && x != "index.md")
+      |> List.map(removemd)
+      |> List.sort(String.compare);
+    let links =
+      ["<a href=\"/\">Home</a>"]
+      @ List.map(
+          name => "<a href=\"/" ++ name ++ "/\">" ++ capitalize(name) ++ "</a>",
+          pageNames,
+        )
+      @ List.map(
+          name => "<a href=\"/" ++ name ++ "/\">" ++ capitalize(name) ++ "</a>",
+          subdirNames,
+        )
+      @ ["<a href=\"/sitemap/\">Sitemap</a>"];
+    "<nav>\n    "
+    ++ String.concat("\n    ", links)
+    ++ "\n  </nav>";
+  };
 
 let rec buildfiletree: (string, string, string, string) => (string, list(page_entry)) =
   (inputdir, outputdir, urlPrefix, basehtml) => {
@@ -91,12 +131,6 @@ let rec buildfiletree: (string, string, string, string) => (string, list(page_en
            [],
          );
 
-    /* Build nav links for subdirectories */
-    let navLinks =
-      subdirNames
-      |> List.map(name => (urlPrefix ++ "/" ++ name ++ "/", name))
-      |> buildNavLinks;
-
     /* Second pass: process markdown files */
     let markdownfiles =
       allfiles
@@ -119,7 +153,13 @@ let rec buildfiletree: (string, string, string, string) => (string, list(page_en
                markdown
                |> Omd.of_string
                |> Omd.to_html;
-             (htmlContent ++ navLinks)
+             let backArrowPrefix =
+               switch (b) {
+               | "index.md" => urlPrefix
+               | _ => urlPrefix ++ "/" ++ removemd(b)
+               };
+             let backArrow = buildBackArrow(backArrowPrefix);
+             (backArrow ++ htmlContent)
              |> addmarkdown(basehtml)
              |> injectMetaTags(_, pageTitle, metaTags)
              |> writef(outdir ++ "/index.html");
@@ -227,6 +267,8 @@ let cmd = {
         | x => x
         };
 
+      let topNav = buildTopNav(markdown);
+      let basehtml = injectNav(basehtml, topNav);
       let (res, pageEntries) = buildfiletree(markdown, public, "", basehtml);
       writef(public ++ "/styles.css", baseCss);
       generateSitemap(markdown, public, basehtml, pageEntries);
