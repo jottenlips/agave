@@ -202,6 +202,14 @@ nav {
   width: 90%;
 }
 
+footer {
+  max-width: 800px;
+  min-width: 270px;
+  width: 90%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
 .nav {
   max-width: 800px;
   min-width: 300px;
@@ -425,6 +433,14 @@ nav {
   max-width: 800px;
   min-width: 270px;
   width: 90%;
+}
+
+footer {
+  max-width: 800px;
+  min-width: 270px;
+  width: 90%;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 .nav {
@@ -652,6 +668,14 @@ nav {
   max-width: 800px;
   min-width: 270px;
   width: 90%;
+}
+
+footer {
+  max-width: 800px;
+  min-width: 270px;
+  width: 90%;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 .nav {
@@ -882,6 +906,14 @@ nav {
   max-width: 800px;
   min-width: 270px;
   width: 90%;
+}
+
+footer {
+  max-width: 800px;
+  min-width: 270px;
+  width: 90%;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 .nav {
@@ -1116,6 +1148,14 @@ nav {
   max-width: 800px;
   min-width: 270px;
   width: 90%;
+}
+
+footer {
+  max-width: 800px;
+  min-width: 270px;
+  width: 90%;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 .nav {
@@ -1384,6 +1424,14 @@ nav {
   max-width: 800px;
   min-width: 270px;
   width: 90%;
+}
+
+footer {
+  max-width: 800px;
+  min-width: 270px;
+  width: 90%;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 .nav {

@@ -120,6 +120,7 @@ let injectNav: (string, string) => string =
     };
 
 let footerCloseRegex = Str.regexp("</footer>");
+let containerCloseStr = "      </div>\n    </div>\n  </body>";
 let bodyCloseRegex = Str.regexp("</body>");
 
 let injectFooter: (string, string) => string =
@@ -133,10 +134,21 @@ let injectFooter: (string, string) => string =
       }) {
       | Not_found =>
         try({
-          let _ = Str.search_forward(bodyCloseRegex, template, 0);
-          Str.replace_first(bodyCloseRegex, "  <footer>\n    " ++ footerHtml ++ "\n  </footer>\n</body>", template);
+          let re = Str.regexp_string(containerCloseStr);
+          let _ = Str.search_forward(re, template, 0);
+          Str.replace_first(
+            re,
+            "      </div>\n      <footer>\n        " ++ footerHtml ++ "\n      </footer>\n    </div>\n  </body>",
+            template,
+          );
         }) {
-        | Not_found => template
+        | Not_found =>
+          try({
+            let _ = Str.search_forward(bodyCloseRegex, template, 0);
+            Str.replace_first(bodyCloseRegex, "  <footer>\n    " ++ footerHtml ++ "\n  </footer>\n</body>", template);
+          }) {
+          | Not_found => template
+          }
         }
       }
     };
