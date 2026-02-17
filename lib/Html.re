@@ -92,6 +92,7 @@ let buildMetaTags: (metadata, string, string) => (string, string) =
     (pageTitle, tags^);
   };
 
+let containerRegex = Str.regexp({|<div class="container">|});
 let bodyRegex = Str.regexp("<body[^>]*>");
 
 let injectNav: (string, string) => string =
@@ -100,11 +101,21 @@ let injectNav: (string, string) => string =
     | "" => template
     | _ =>
       try({
-        let _ = Str.search_forward(bodyRegex, template, 0);
-        let bodyTag = Str.matched_string(template);
-        Str.replace_first(bodyRegex, bodyTag ++ "\n  " ++ navHtml, template);
+        let _ = Str.search_forward(containerRegex, template, 0);
+        Str.replace_first(
+          containerRegex,
+          {|<div class="container">|} ++ "\n      " ++ navHtml,
+          template,
+        );
       }) {
-      | Not_found => template
+      | Not_found =>
+        try({
+          let _ = Str.search_forward(bodyRegex, template, 0);
+          let bodyTag = Str.matched_string(template);
+          Str.replace_first(bodyRegex, bodyTag ++ "\n  " ++ navHtml, template);
+        }) {
+        | Not_found => template
+        }
       }
     };
 
