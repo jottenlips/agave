@@ -94,6 +94,15 @@ pre {
   border: 1px solid #333333;
 }
 
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px;
+  margin: 0 auto 10px;
+  max-width: 800px;
+}
+
 .nav {
   max-width: 800px;
   min-width: 300px;

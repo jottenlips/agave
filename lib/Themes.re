@@ -32,11 +32,11 @@ body {
 nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 16px;
   padding: 16px 0;
   border-bottom: 2px solid #2d5016;
-  margin-bottom: 32px;
+  margin: 0 auto 32px;
+  max-width: 800px;
 }
 
 nav a {
@@ -196,10 +196,10 @@ pre {
 nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 12px;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 0 auto 10px;
+  max-width: 800px;
 }
 
 .nav {
@@ -420,10 +420,10 @@ pre {
 nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 12px;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 0 auto 10px;
+  max-width: 800px;
 }
 
 .nav {
@@ -646,10 +646,10 @@ pre {
 nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 12px;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 0 auto 10px;
+  max-width: 800px;
 }
 
 .nav {
@@ -875,10 +875,10 @@ pre {
 nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 12px;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 0 auto 10px;
+  max-width: 800px;
 }
 
 .nav {
@@ -1108,10 +1108,10 @@ pre {
 nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 12px;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 0 auto 10px;
+  max-width: 800px;
 }
 
 .nav {
@@ -1375,10 +1375,10 @@ pre {
 nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 12px;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 0 auto 10px;
+  max-width: 800px;
 }
 
 .nav {

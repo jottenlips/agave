@@ -95,6 +95,15 @@ pre {
   box-shadow: 0 2px 12px rgba(61,43,26,0.15);
 }
 
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px;
+  margin: 0 auto 10px;
+  max-width: 800px;
+}
+
 .nav {
   max-width: 800px;
   min-width: 300px;

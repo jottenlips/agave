@@ -136,6 +136,15 @@ pre {
   box-shadow: 0 0 25px rgba(255, 136, 0, 0.06), inset 0 0 30px rgba(255, 170, 0, 0.02);
 }
 
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px;
+  margin: 0 auto 10px;
+  max-width: 800px;
+}
+
 .nav {
   max-width: 800px;
   min-width: 300px;
