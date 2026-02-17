@@ -80,15 +80,13 @@ let buildTopNav: string => string =
       |> List.filter(x => is_markdown(x) && x != "index.md")
       |> List.map(removemd)
       |> List.sort(String.compare);
+    let allNames =
+      List.sort_uniq(String.compare, pageNames @ subdirNames);
     let links =
       ["<a href=\"/\">Home</a>"]
       @ List.map(
           name => "<a href=\"/" ++ name ++ "/\">" ++ capitalize(name) ++ "</a>",
-          pageNames,
-        )
-      @ List.map(
-          name => "<a href=\"/" ++ name ++ "/\">" ++ capitalize(name) ++ "</a>",
-          subdirNames,
+          allNames,
         )
       @ ["<a href=\"/sitemap/\">Sitemap</a>"];
     "<nav>\n    "
