@@ -22,4 +22,4 @@ Preview every built-in theme:
 - [Ix](/themes/ix/) — 90s cyberdelia, neon on dark
 - [Salusa Secundus](/themes/salusasecundus/) — Brutalist, raw concrete
 - [Spice](/themes/spice/) — Psychedelic melange, molten oranges and gold
-- [Random Photo](/themes/randomphoto/) — Random cover photo with a light palette
+

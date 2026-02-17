@@ -70,7 +70,7 @@ Available themes:
 - **ix** - 90s cyberdelia, neon on dark
 - **salusasecundus** - Brutalist, raw concrete with heavy type
 - **spice** - Psychedelic melange, molten oranges and gold shimmer
-- **randomphoto** - Random cover photo with a light palette
+
 
 ## Example Site with Theme Previews
 

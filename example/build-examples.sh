@@ -11,7 +11,7 @@ cd "$SCRIPT_DIR"
 echo "==> Building main site..."
 agave -m markdown -p public
 
-THEMES="arrakis caladan giediprime ix salusasecundus spice randomphoto"
+THEMES="arrakis caladan giediprime ix salusasecundus spice"
 
 for theme in $THEMES; do
   echo "==> Building theme preview: $theme"

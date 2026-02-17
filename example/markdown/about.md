@@ -10,7 +10,7 @@ Agave is a lightweight static site generator that turns markdown files into a we
 - Markdown to HTML conversion
 - Custom templates with `base.html`
 - Per-page meta tags via shorthand notation
-- Built-in themes (arrakis, caladan, giediprime, ix, salusasecundus, spice, randomphoto)
+- Built-in themes (arrakis, caladan, giediprime, ix, salusasecundus, spice)
 - Client-side searchable sitemap
 - Local dev server
 
